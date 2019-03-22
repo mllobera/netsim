@@ -1,0 +1,7 @@
+# ignore output directory and data directory
+
+**/.ipynb_checkpoints
+**/__pycache__
+build/
+netsim.egg-info/
+data/
