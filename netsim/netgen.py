@@ -316,24 +316,35 @@ def network_layout(df, iteration, iter_num, df_net=None, twoway= False, opt='clo
     if opt not in options:
         raise Exception("'opt' not valid!!! Choose from {}".format(options))
     
-    # df_net?
+    # create df_net?
     if df_net is None:
         net = {'origin': 'int32', 'destination': 'int32', 'iteration': 'int32'}
         df_net = pd.DataFrame(columns=list(net.keys())).astype(net)      
         
     # distinct groups
     groups = df['group'].unique()
-    n_groups = len(groups)
+    n_groups = len(groups)            
+    grp_sizes = df.groupby(['group']).count().id.values # sizes of each group
     
     if n_groups == 1:
+        
         if opt == 'close':
-            pass
+            origins = df.loc[df['group']== groups[0]]['id'].tolist()
+            destinations = origins[1:]+[origins[0]]
+            for o, d in zip(origins, destinations):
+                df_net.loc[len(df_net.index)] = [o,d,iter_num]
+                if twoway & (grp_sizes[0]>2):
+                    df_net.loc[len(df_net.index)] = [d,o,iter_num]
         else:
-            # by default do all
-            pass
+            # do all other options as 'all' 
+            origins = df['id'].tolist()
+            indx = range(len(origins))
+            for i in indx[:-1]:
+                for j in indx[i+1:]:
+                    df_net.loc[len(df_net.index)] = [origins[i], origins[j], iter_num]
+                    if twoway:
+                        df_net.loc[len(df_net.index)] = [origins[j], origins[i], iter_num]                               
     else:
-        # sizes of each group
-        grp_sizes = df.groupby(['group']).count().id.values
         
         if opt == 'close':
                        
@@ -443,7 +454,7 @@ def network_layout(df, iteration, iter_num, df_net=None, twoway= False, opt='clo
             
         else: #opt == 'all'#
             
-            # define paths from all locations to all locations
+            # define paths from all locations to all other locations
             origins = df['id'].tolist()
             indx = range(len(origins))
             for i in indx[:-1]:
