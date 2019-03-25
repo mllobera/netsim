@@ -318,18 +318,22 @@ def network_layout(df, iteration, iter_num, df_net=None, twoway= False, opt='clo
     
     # create df_net?
     if df_net is None:
+        print('creating df')
         net = {'origin': 'int32', 'destination': 'int32', 'iteration': 'int32'}
         df_net = pd.DataFrame(columns=list(net.keys())).astype(net)      
         
     # distinct groups
+    
     groups = df['group'].unique()
     n_groups = len(groups)            
     grp_sizes = df.groupby(['group']).count().id.values # sizes of each group
+    iteration = [list(g) for g in iteration]
     
     if n_groups == 1:
         
         if opt == 'close':
-            origins = df.loc[df['group']== groups[0]]['id'].tolist()
+            origins = iteration[0]
+            print(origins)
             destinations = origins[1:]+[origins[0]]
             for o, d in zip(origins, destinations):
                 df_net.loc[len(df_net.index)] = [o,d,iter_num]
@@ -337,7 +341,7 @@ def network_layout(df, iteration, iter_num, df_net=None, twoway= False, opt='clo
                     df_net.loc[len(df_net.index)] = [d,o,iter_num]
         else:
             # do all other options as 'all' 
-            origins = df['id'].tolist()
+            origins = iteration[0]
             indx = range(len(origins))
             for i in indx[:-1]:
                 for j in indx[i+1:]:
@@ -351,7 +355,7 @@ def network_layout(df, iteration, iter_num, df_net=None, twoway= False, opt='clo
             for i in range(n_groups):
                 if grp_sizes[i] > 1:
                     # generate paths connecting all locations within the same group
-                    origins = df.loc[df['group']== groups[i]]['id'].tolist()
+                    origins = iteration[i]
                     destinations = origins[1:]+[origins[0]]
                     for o, d in zip(origins, destinations):
                         df_net.loc[len(df_net.index)] = [o,d,iter_num]
@@ -366,7 +370,7 @@ def network_layout(df, iteration, iter_num, df_net=None, twoway= False, opt='clo
             # first group
             if grp_sizes[0] > 1:
                 # more than one location. define paths connecting all locations in group
-                origins = df.loc[df['group']== groups[0]]['id'].tolist()
+                origins = iteration[0]
                 destinations = origins[1:]+[origins[0]]
                 for o, d in zip(origins, destinations):
                     df_net.loc[len(df_net.index)] = [o,d,iter_num]
@@ -374,12 +378,12 @@ def network_layout(df, iteration, iter_num, df_net=None, twoway= False, opt='clo
                         df_net.loc[len(df_net.index)] = [d,o,iter_num]
             
             # set destinations to all locations in first group 
-            destinations_up = df.loc[df['group']== groups[0]]['id'].tolist()
+            destinations_up = iteration[0]
             
             # loop thru lower levels
             for i in range(1,n_groups):
                 # define paths from lower level locations to all first group locations
-                origins = df.loc[df['group']== groups[i]]['id'].tolist()
+                origins = iteration[i]
                 for o in origins:
                     for d in destinations_up:
                         df_net.loc[len(df_net.index)] = [o,d,iter_num]
@@ -391,7 +395,7 @@ def network_layout(df, iteration, iter_num, df_net=None, twoway= False, opt='clo
             # first group
             if grp_sizes[0] > 1:
                 # more than one location, define paths connecting all locations in group
-                origins = df.loc[df['group']== groups[0]]['id'].tolist()
+                origins = iteration[0]
                 destinations = origins[1:]+[origins[0]]
                 for o, d in zip(origins, destinations):
                     df_net.loc[len(df_net.index)] = [o,d,iter_num]
@@ -399,13 +403,13 @@ def network_layout(df, iteration, iter_num, df_net=None, twoway= False, opt='clo
                         df_net.loc[len(df_net.index)] = [d,o,iter_num]
             
             # set destinations to all locations in first group 
-            destinations_up = df.loc[df['group']== groups[0]]['id'].tolist()
+            destinations_up = iteration[0]
             
             # loop thru levels
             for i in range(1,n_groups):
                 
                 # define paths to from higher level locations to lower level locations
-                origins = df.loc[df['group']== groups[i]]['id'].tolist()
+                origins = iteration[i]
                 for o in origins:
                     for d in destinations_up:
                         df_net.loc[len(df_net.index)] = [o,d,iter_num]
@@ -420,7 +424,7 @@ def network_layout(df, iteration, iter_num, df_net=None, twoway= False, opt='clo
             # first group
             if grp_sizes[0] > 1:
                 # more than one location
-                origins = df.loc[df['group']== groups[0]]['id'].tolist()
+                origins = iteration[0]
                 destinations = origins[1:]+[origins[0]]
                 for o, d in zip(origins, destinations):
                     df_net.loc[len(df_net.index)] = [o,d,iter_num]
@@ -428,13 +432,13 @@ def network_layout(df, iteration, iter_num, df_net=None, twoway= False, opt='clo
                         df_net.loc[len(df_net.index)] = [d,o,iter_num]
 
             # set destinations to all locations in first group
-            destinations_up = df.loc[df['group']== groups[0]]['id'].tolist()
+            destinations_up = iteration[0]
 
             # loop thru levels
             for i in range(1,n_groups):
 
                 # define paths to from higher level locations to lower level locations
-                origins = df.loc[df['group']== groups[i]]['id'].tolist()
+                origins = iteration[i] #df.loc[df['group']== groups[i]]['id'].tolist()
                 for o in origins:
                     for d in destinations_up:
                         df_net.loc[len(df_net.index)] = [o,d,iter_num]
@@ -455,7 +459,7 @@ def network_layout(df, iteration, iter_num, df_net=None, twoway= False, opt='clo
         else: #opt == 'all'#
             
             # define paths from all locations to all other locations
-            origins = df['id'].tolist()
+            origins = [id for g in iteration for id in g]
             indx = range(len(origins))
             for i in indx[:-1]:
                 for j in indx[i+1:]:
