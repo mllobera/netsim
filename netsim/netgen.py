@@ -318,7 +318,6 @@ def network_layout(df, iteration, iter_num, df_net=None, twoway= False, opt='clo
     
     # create df_net?
     if df_net is None:
-        print('creating df')
         net = {'origin': 'int32', 'destination': 'int32', 'iteration': 'int32'}
         df_net = pd.DataFrame(columns=list(net.keys())).astype(net)      
         
@@ -333,7 +332,6 @@ def network_layout(df, iteration, iter_num, df_net=None, twoway= False, opt='clo
         
         if opt == 'close':
             origins = iteration[0]
-            print(origins)
             destinations = origins[1:]+[origins[0]]
             for o, d in zip(origins, destinations):
                 df_net.loc[len(df_net.index)] = [o,d,iter_num]
