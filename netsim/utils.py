@@ -144,118 +144,121 @@ def pt2rc (pts, meta):
     
     return r.astype('int32'), c.astype('int32')
 
-def plot_map(ras, loc= None, save= False, **kwsplot):
+def plot_map(raster, loc= None, title= None, figsize= (5,5), cmap= 'viridis', cbar= False, save= None, **kwother):
     '''
-    Plots a raster.
+    Basic raster plot.
     
     Parameters
     ----------
     
-    ras: 2D numpy array
-        raster to be displayed
+    ras: dictionary
+        dictionary must have at least two entries: 'ras', 2D numpy array representing a raster; 'meta', meta
+        information (from *rasterio*) about the raster. Optional entries are 'bground', a 2D numpy array
+        representing a background raster and 'paths', representing a network of paths (it assumed that 'ras'
+        represents a DEM).
     
-    loc: geodataframe
-        location information
+    loc: dictionary or geodataframe
+        used to identify point locations. if dictionary then it must have at leat two entries: 'df', identifying
+        geopandas framework holding point data, 'label', name of the column in 'df' used to labelling points.
     
-    save: boolean
-        if True save output (default is False)
+    title: string
+        if not empty then title to be used when displaying ras
     
-    kwsplot: dictionary
-        dictionary that contains other dictionaries (kwsras, kwslbl, kwsother)
+    figsize: tuple
+        Size of figure. *Default*: (5,5)
     
+    cmap: string
+        name of the matplotlib colormap. *Default*: 'viridis'
+    
+    cbar: boolean
+        if True colorbar is displayed. *Default*: False
+    
+    save: string
+        if not empty then name of the output image (default is None)
+        
     Returns
     -------
     None
-    
-    Notes
-    -----
-    talk about the internal dictionaries
-    
+        
     '''
+   
+
+    # set figure
+    if cmap:
+       cmap = mpl.cm.get_cmap(cmap)
     
-    # separate dictionaries
-    if kwsplot:
-        if 'kwsras' in kwsplot.keys():
-            kws_ras = kwsplot['kwsras']
-        else:
-            kws_ras ={}
-
-        if 'kwslbl' in kwsplot.keys():
-            kws_lbl = kwsplot['kwslbl']
-        else:
-            kws_lbl ={}
-            
-        if 'kwsother' in kwsplot.keys():
-            kws_other = kwsplot['kwsother']
-        else:
-            kws_other={}
-
-    if 'label'  in kws_other.keys():
-        label = kws_other['label']
-    else:
-        label = 'id'
-        
-    if 'cbar_pct' in kws_other.keys():    
-        cbar = True
-        cbar_pct = kws_other['cbar_pct']
-    else:
-        cbar= False   
-
-    if 'figsize' in kws_other.keys():
-        figsize = kws_other['figsize']
-    else:
-        figsize = (6,6)
-
-    if 'title' in kws_other.keys():
-        title = kws_other['title']
-    else:
-        title = ''
-
-    if 'output' in kws_other.keys():
-        output = kws_other['output']
-    else:
-        output= './map.png'
-        
-
-    if 'cmap' in kws_ras:
-        kws_ras['cmap'] = mpl.cm.get_cmap(kws_ras['cmap'])
-
-    # colorbar?
-    if cbar:        
-        wcbar = cbar_pct/100.0
+    if cbar: # colorbar?       
+        wcbar = 0.03
         gridspec_kw={'width_ratios':[1,wcbar], 'wspace': 0.05}
         fig, (ax, cax) = plt.subplots(ncols = 2, figsize= (figsize[1] + figsize[1]*wcbar, figsize[0]), gridspec_kw=gridspec_kw)
     else:
         fig, ax = plt.subplots(ncols = 1, figsize= figsize)
 
-    if 'bground' in kws_other.keys():
-        im2 = ax.imshow(kws_other['bground'], extent=kws_ras['extent'], origin='upper', cmap= mpl.cm.get_cmap('Greys'))
+    # raster
+    if isinstance(raster, dict):
+        if set(['ras', 'meta']) <= set(raster.keys()):
+            
+            # default
+            img = raster['ras']
+            alpha = 1.0
 
-        # plot map
-    im = ax.imshow(ras, origin= 'upper', **kws_ras)
+            # calculate extension
+            bounds = raster['meta']['bounds']
+            extent = [bounds.left, bounds.right, bounds.bottom, bounds.top]
+            
+            # background image?
+            if 'bground' in raster.keys():
+                alpha = 0.5
+                im2 = ax.imshow(raster['bground'], extent= extent, origin='upper', cmap= mpl.cm.get_cmap('Greys'))
+
+            # paths overlay?    
+            if 'paths' in raster.keys():
+                ax.contourf(img, 6, extent=extent, origin= 'upper', cmap= mpl.cm.get_cmap('Purples'), alpha=0.4)
+                img = np.ma.array(raster['paths'], mask= raster['paths'] == 0.0)
+                
+            # plot main raster
+            im = ax.imshow(img, origin= 'upper', cmap= cmap, extent= extent, alpha= alpha)
+            
+            # colorbar?
+            if cbar:
+                fig.colorbar(im, cax= cax)
+        else:
+            raise Exception('raster is missing  ''"ras"'' and/or ''"meta"'' keys! ')
+    else:
+        raise Exception('raster must be a dictionary')
     
+    if title:
+        ax.set_title(title)
         
-    ax.set_title(title) 
-
-    # coloram
-    if cbar:
-        fig.colorbar(im, cax= cax)
-
     # locations?
-    if loc is not None:
-        xs, ys = loc['geometry'].x.values, loc['geometry'].y.values
-        data = zip(loc[label].values, xs, ys )
-        ax.scatter(xs,ys, color=kws_lbl['color'])        
-        for id, x, y in data:
-            ax.annotate(str(id), xy=(x,y), **kws_lbl)
+    if not loc is None:
+        # is it a dictionary?
+        if isinstance(loc, dict):
+            if set(['df', 'label']) <= set(loc.keys()):
+                xs, ys = loc['df']['geometry'].x.values, loc['df']['geometry'].y.values
+                labels = loc['df'][loc['label']].values
+                data = zip(labels, xs, ys )  
+                ax.scatter(xs,ys, color='lightgray')        
+                for id, x, y in data:
+                    ax.annotate(str(id), xy=(x,y), color='lightgray', xytext= (2.5,2.5), textcoords='offset points')                
+            else:
+                 raise Exception('Loc does not have the right keys!')
+        else:
+             if isinstance(loc, gpd.geodataframe.GeoDataFrame):
+                    xs, ys = loc['geometry'].x.values, loc['geometry'].y.values
+                    data = zip(xs, ys)
+                    ax.scatter(xs,ys, color='lightgray')        
+             else:
+                raise Exception('Not a dictionary or dataframe!!')
 
-    # save?
+    # saving output?
     if save:
-        plt.savefig(fname= output, dpi= 200)
+        output= save+'.png'      
+        plt.savefig(fname= output, dpi= 300)
 
     plt.show()
 
-def calculate_hillshade(img ,azimuth,angle_altitude):
+def calculate_hillshade(img, az= 135, elev_angle= 40):
     '''
     Calculates hillshade
     
@@ -265,20 +268,20 @@ def calculate_hillshade(img ,azimuth,angle_altitude):
     img: 2D numpy array
         heightmap
     
-    azimuth: float
+    az: float
         Horizontal direction of the source of light (degrees)
     
-    angle_altitude: float
+    elev_angle: float
         elevation angle of the source of light (degrees)
     
     '''
-    azimuth = 360.0 - azimuth    
+    az = 360.0 - az    
     x, y = np.gradient(img)
     slope = np.pi/2. - np.arctan(np.sqrt(x*x + y*y))
     aspect = np.arctan2(-x, y)
-    azimuthrad = np.radians(azimuth)
-    altituderad = np.radians(angle_altitude)
+    azrad = np.radians(az)
+    altituderad = np.radians(elev_angle)
  
-    shaded = np.sin(altituderad)*np.sin(slope) + np.cos(altituderad)*np.cos(slope)*np.cos((azimuthrad - np.pi/2.) - aspect)
+    shaded = np.sin(altituderad)*np.sin(slope) + np.cos(altituderad)*np.cos(slope)*np.cos((azrad - np.pi/2.) - aspect)
     
     return 255*(shaded + 1)/2
