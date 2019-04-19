@@ -322,7 +322,6 @@ def network_layout(df, iteration, iter_num, df_net=None, twoway= False, opt='clo
         df_net = pd.DataFrame(columns=list(net.keys())).astype(net)      
         
     # distinct groups
-    
     groups = df['group'].unique()
     n_groups = len(groups)            
     grp_sizes = df.groupby(['group']).count().id.values # sizes of each group
