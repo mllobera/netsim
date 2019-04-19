@@ -9,6 +9,8 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import pandas as pd
 import geopandas as gpd
+import networkx as nx
+
 
 
 def read_raster(fn):
@@ -238,16 +240,16 @@ def plot_map(raster, loc= None, title= None, figsize= (5,5), cmap= 'viridis', cb
                 xs, ys = loc['df']['geometry'].x.values, loc['df']['geometry'].y.values
                 labels = loc['df'][loc['label']].values
                 data = zip(labels, xs, ys )  
-                ax.scatter(xs,ys, color='lightgray')        
+                ax.scatter(xs,ys, color='darkgray')        
                 for id, x, y in data:
-                    ax.annotate(str(id), xy=(x,y), color='lightgray', xytext= (2.5,2.5), textcoords='offset points')                
+                    ax.annotate(str(id), xy=(x,y), color='darkgray', xytext= (2.5,2.5), textcoords='offset points')                
             else:
                  raise Exception('Loc does not have the right keys!')
         else:
              if isinstance(loc, gpd.geodataframe.GeoDataFrame):
                     xs, ys = loc['geometry'].x.values, loc['geometry'].y.values
                     data = zip(xs, ys)
-                    ax.scatter(xs,ys, color='lightgray')        
+                    ax.scatter(xs,ys, color='darkgray')        
              else:
                 raise Exception('Not a dictionary or dataframe!!')
 
@@ -285,3 +287,38 @@ def calculate_hillshade(img, az= 135, elev_angle= 40):
     shaded = np.sin(altituderad)*np.sin(slope) + np.cos(altituderad)*np.cos(slope)*np.cos((azrad - np.pi/2.) - aspect)
     
     return 255*(shaded + 1)/2
+
+def plot_network(df, save = None):
+    '''
+    Plots network
+    
+    Parameters
+    ----------
+
+    df : pandas dataframe
+         contains the ids of origin and destination of each path in the network
+
+    Notes
+    -----
+        The dataframe above is the output from running netgen.network_layout().
+
+    '''
+
+    # create graph
+    G = nx.Graph()
+    
+    # find and add nodes
+    tmp = set(df.loc[:,'origin'].unique().tolist()) | set(df.loc[:,'destination'].unique().tolist())
+    G.add_nodes_from(list(tmp))
+    
+    # add edges
+    for indx, row in df.iterrows():
+        G.add_edge(row['origin'],row['destination'])
+    
+    # draw network
+    nx.draw(G, with_labels=True)
+
+    # saving output?
+    if save:
+        output= save+'.png'      
+        plt.savefig(fname= output, dpi= 300)
