@@ -143,7 +143,7 @@ setup(
     #
     # For an analysis of "install_requires" vs pip's requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['numpy>= 1.14.3', 'cython>=0.28.2'],  # Optional
+    install_requires=['numpy>= 1.14.3', 'cython>=0.28.2', 'networkx>=2.3'],  # Optional
 
     # Include here extensions - MLL
     ext_modules = extensions, #Optional
