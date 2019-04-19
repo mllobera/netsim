@@ -14,7 +14,7 @@ def calculate_network_cost(Gt, cellsize, alpha):
         Ground potential
     
     alpha: float
-        coefficient calculated as $\frac{d_0}{ln \left 1 - NC_0 \right$ }
+        coefficient calculated as $\frac{d_0}{ln \left( 1 - NC_0 \right)$ }
     
     '''
    
@@ -22,7 +22,7 @@ def calculate_network_cost(Gt, cellsize, alpha):
     d[Gt > 1.0] = 0.0
     d = calculate_dt(d, cellsize, option=2)
     
-    return  1.0 - np.exp(d / alpha) * np.mean(Gt)
+    return  1.0 - np.exp(d / alpha) #* np.mean(Gt)
 
 
 def simulation(pts, net_layout, cost_dict, netsim_dict):
