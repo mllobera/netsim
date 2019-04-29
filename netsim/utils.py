@@ -39,6 +39,7 @@ def read_raster(fn):
             meta   = src.meta
             ras    = src.read(1)
             ras = np.ascontiguousarray(ras, dtype=np.float64)
+            meta['dtype']= 'float64'
             meta['bounds'] = src.bounds
             return ras, meta
     
