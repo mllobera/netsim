@@ -201,6 +201,11 @@ def plot_map(raster, loc= None, title= None, figsize= (5,5), cmap= 'viridis', cb
     if isinstance(raster, dict):
         if set(['ras', 'meta']) <= set(raster.keys()):
             
+            # default
+            img = raster['ras']
+            meta = raster['meta']
+            alpha = 1.0
+
             # calculate extension
             bounds = raster['meta']['bounds']
             extent = [bounds.left, bounds.right, bounds.bottom, bounds.top]
@@ -209,11 +214,6 @@ def plot_map(raster, loc= None, title= None, figsize= (5,5), cmap= 'viridis', cb
             if 'bground' in raster.keys():
                 alpha = 0.5
                 im2 = ax.imshow(raster['bground'], extent= extent, origin='upper', cmap= mpl.cm.get_cmap('Greys'))
-
-            # default
-            img = raster['ras']
-            meta = raster['meta']
-            alpha = 1.0
 
             # nodata?
             if np.any(img == meta['nodata']):
