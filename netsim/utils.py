@@ -136,7 +136,7 @@ def pt2rc (pts, meta):
     
     # collecting information
     xul, _, _, yul = meta['bounds']
-    nrows, ncols = meta['width'], meta['height']
+    nrows, ncols = meta['height'], meta['width']
     cellsize = meta['affine'].a
     
     # convert easting and northings to rows and columns
@@ -201,10 +201,6 @@ def plot_map(raster, loc= None, title= None, figsize= (5,5), cmap= 'viridis', cb
     if isinstance(raster, dict):
         if set(['ras', 'meta']) <= set(raster.keys()):
             
-            # default
-            img = raster['ras']
-            alpha = 1.0
-
             # calculate extension
             bounds = raster['meta']['bounds']
             extent = [bounds.left, bounds.right, bounds.bottom, bounds.top]
@@ -214,11 +210,32 @@ def plot_map(raster, loc= None, title= None, figsize= (5,5), cmap= 'viridis', cb
                 alpha = 0.5
                 im2 = ax.imshow(raster['bground'], extent= extent, origin='upper', cmap= mpl.cm.get_cmap('Greys'))
 
+            # default
+            img = raster['ras']
+            meta = raster['meta']
+            alpha = 1.0
+
+            # nodata?
+            if np.any(img == meta['nodata']):
+                nodata_mask = img == meta['nodata']
+                img = np.ma.array(img, mask = nodata_mask)
+                cmap.set_bad('white',0.0)
+
             # paths overlay?    
             if 'paths' in raster.keys():
-                ax.contourf(img, 6, extent=extent, origin= 'upper', cmap= mpl.cm.get_cmap('Purples'), alpha=0.4)
-                img = np.ma.array(raster['paths'], mask= raster['paths'] == 0.0)
+                cmap= mpl.cm.get_cmap('Purples')
+                cmap.set_bad('darkgray',0.1)
+                ax.contourf(img, 6, extent=extent, origin= 'upper', cmap= cmap, alpha=0.5)               
+                paths_mask = raster['paths'] == 0.0
+
+                # already a mask?
+                if np.ma.is_masked(img):
+                    combined_mask = nodata_mask * paths_mask
+                else:
+                    combined_mask = path_mask
                 
+                img = np.ma.array(raster['paths'], mask= combined_mask)
+            
             # plot main raster
             im = ax.imshow(img, origin= 'upper', cmap= cmap, extent= extent, alpha= alpha)
             
@@ -229,6 +246,7 @@ def plot_map(raster, loc= None, title= None, figsize= (5,5), cmap= 'viridis', cb
             raise Exception('raster is missing  ''"ras"'' and/or ''"meta"'' keys! ')
     else:
         raise Exception('raster must be a dictionary')
+
     
     if title:
         ax.set_title(title)
