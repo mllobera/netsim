@@ -63,12 +63,11 @@ def setup(df):
     '''
     
     # copy original dataframe
-    c_df = df.copy()
+    c_df = df.rename(str.lower, axis = 'columns')
     
     # collect basic information from dataframe
     nrows, ncols = c_df.shape
     colnames = list(c_df)
-    colnames= [cn.lower() for cn in colnames]
         
     # initialize message 
     msg = []
