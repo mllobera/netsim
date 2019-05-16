@@ -101,12 +101,12 @@ def create_paths(BLX, BLY, origin, destinations, start_path=0):
     -----
     
     Depending on the size of the chamfer window used, backlink arrays may contain jumps that are greater than one cell.
-    Hence we need to use an auxiliary function (segment()) to connect these.
+    Hence we need to use an auxiliary function, segment(), to connect these.
     
     Include origin???
     
     '''
-   
+
     # array to store path/s
     paths = np.zeros_like(BLX, dtype=np.int16)
     
@@ -114,7 +114,7 @@ def create_paths(BLX, BLY, origin, destinations, start_path=0):
     path_num= start_path
     
     # initialize network paths dictionary
-    paths_dict = OrderedDict()
+    path_lst = [] #paths_dict = {} #OrderedDict()
     
     for destination in destinations:
         
@@ -145,11 +145,16 @@ def create_paths(BLX, BLY, origin, destinations, start_path=0):
         
         # store path information
         path_num += 1
-        paths_dict[path_num] ={'origin': origin[0],
-                               'destination': destination,
-                               'track': np.array(rcs).T}
+        path_lst.append({'id': path_num,
+                         'origin': origin[0],
+                         'destination': destination,
+                         'track': np.array(rcs).T})
+
+        # paths_dict[path_num] ={'origin': origin[0],
+        #                        'destination': destination,
+        #                        'track': np.array(rcs).T}
         
         # add new path
         paths += pth
     
-    return paths, paths_dict
+    return paths, path_lst #paths_dict
