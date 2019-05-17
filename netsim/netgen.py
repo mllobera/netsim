@@ -190,7 +190,7 @@ def create_network_generator(df):
        
     '''
 
-    groups = df['group'].unique()                                                           # number of groups in df?
+    groups = df['group'].sort_values().unique()                                             # number of groups in df?
 
     netgentor = list(range(len(groups)))                                                    # initialize list to store
                                                                                             # generator functions.
