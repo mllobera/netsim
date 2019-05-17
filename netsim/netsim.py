@@ -76,7 +76,7 @@ def simulation(pts, net_layout, cost_dict, netsim_dict):
     paths = np.zeros_like(Gt)
     
     # initialize paths dictionary
-    paths_dict= OrderedDict()
+    path_lst = [] #paths_dict= {}#OrderedDict()
     
     for pth_id, pth_def in net_layout.iterrows():
         
@@ -97,19 +97,23 @@ def simulation(pts, net_layout, cost_dict, netsim_dict):
         acs, blx, bly = calculate_iwdt(acs, cost_dict)
         
         # create new path to destination
-        path_t, track = pt.create_paths(blx, bly, origin, destination, start_path=pth_id)
+        path_t, path_info = pt.create_paths(blx, bly, origin, destination, start_path=pth_id)
 
         # update paths
         paths += path_t
-        paths_dict.update(track)
+        path_lst.append(path_info) #paths_dict.update(path_info)
         
         # update ground potential
         Gt = Gt_1 - (Gt_1/T) + path_t * i * (1 - (Gt_1 / Gmax))
               
         #update network cost
-        cost_dict['netcost'] = calculate_network_cost(Gt, cost_dict['cellsize'], alpha)
+
+        d = np.full_like(Gt, 99999.0)
+        d[Gt >= 1.0] = 0.0
+        d = calculate_dt(d, cost_dict['cellsize'], option=2)
+        cost_dict['netcost'] = 1.0 - np.exp(d / alpha)
         
         # update Gt_1
         Gt_1 = np.copy(Gt)
         
-    return Gt, paths, paths_dict
+    return Gt, paths, path_lst #paths_dict
