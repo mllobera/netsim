@@ -1,16 +1,15 @@
 '''
-
+Utils module with various i/o and utility functions
 '''
 
 from __future__ import with_statement
-import rasterio
+import rasterio as ro
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import pandas as pd
 import geopandas as gpd
 import networkx as nx
-
 
 
 def read_raster(fn):
@@ -29,19 +28,19 @@ def read_raster(fn):
     ras: 2D numpy array
         raster
     
-    meta: dictionary
+    profile: dictionary
         raster geospatial information
     
     '''
     
     try:       
-        with rasterio.open(fn) as src:
-            meta   = src.meta
+        with ro.open(fn) as src:
+            profile   = src.profile
             ras    = src.read(1)
             ras = np.ascontiguousarray(ras, dtype=np.float64)
-            meta['dtype']= 'float64'
-            meta['bounds'] = src.bounds
-            return ras, meta
+            profile['dtype']= 'float64'
+            profile['bounds'] = src.bounds
+            return ras, profile
     
     except EnvironmentError:
         print('Oops! Could not find file')
@@ -73,7 +72,7 @@ def add_polyline(track, gdf):
     
     return gdf
 
-def rc2pt(rc, meta):
+def rc2pt(rc, profile):
     '''
     Returns the center x, y coordinates of cells at row, column locations.
     
@@ -83,7 +82,7 @@ def rc2pt(rc, meta):
     rc: list
         list of rows and column pairs
     
-    meta: dictionary
+    profile: dictionary
         raster geospatial information
     
     Returns
@@ -97,9 +96,9 @@ def rc2pt(rc, meta):
     r, c = rc[0,:], rc[1,:]
     
     # collecting information
-    xul, yll, _ , _ = meta['bounds']
-    nrows = meta['height']
-    cellsize = meta['affine'].a
+    xul, yll, _ , _ = profile['bounds']
+    nrows = profile['height']
+    cellsize = profile['affine'].a
          
     # calculating x and y
     ys = yll + ((nrows - 1) - r) * cellsize + cellsize / 2
@@ -109,7 +108,7 @@ def rc2pt(rc, meta):
     
     return pts
 
-def pt2rc (pts, meta):
+def pt2rc (pts, profile):
     '''
     Returns row and column
     
@@ -119,7 +118,7 @@ def pt2rc (pts, meta):
     pts: shapely point
         points
     
-    meta: dictionary
+    profile: dictionary
         raster geospatial information
         
     Returns
@@ -135,9 +134,9 @@ def pt2rc (pts, meta):
     '''
     
     # collecting information
-    xul, _, _, yul = meta['bounds']
-    nrows, ncols = meta['height'], meta['width']
-    cellsize = meta['affine'].a
+    xul, _, _, yul = profile['bounds']
+    nrows, ncols = profile['height'], profile['width']
+    cellsize = profile['affine'].a
     
     # convert easting and northings to rows and columns
     r = (yul - pts.y.values) // cellsize
@@ -155,7 +154,7 @@ def plot_map(raster, loc= None, title= None, figsize= (5,5), cmap= 'viridis', cb
     ----------
     
     ras: dictionary
-        dictionary must have at least two entries: 'ras', 2D numpy array representing a raster; 'meta', meta
+        dictionary must have at least two entries: 'ras', 2D numpy array representing a raster; 'profile', profile
         information (from *rasterio*) about the raster. Optional entries are 'bground', a 2D numpy array
         representing a background raster and 'paths', representing a network of paths (it assumed that 'ras'
         represents a DEM).
@@ -185,8 +184,7 @@ def plot_map(raster, loc= None, title= None, figsize= (5,5), cmap= 'viridis', cb
         
     '''
    
-
-    # set figure
+    # set colormap
     if cmap:
        cmap = mpl.cm.get_cmap(cmap)
     
@@ -199,15 +197,15 @@ def plot_map(raster, loc= None, title= None, figsize= (5,5), cmap= 'viridis', cb
 
     # raster
     if isinstance(raster, dict):
-        if set(['ras', 'meta']) <= set(raster.keys()):
+        if set(['ras', 'profile']) <= set(raster.keys()):
             
             # default
             img = raster['ras']
-            meta = raster['meta']
+            profile = raster['profile']
             alpha = 1.0
 
             # calculate extension
-            bounds = raster['meta']['bounds']
+            bounds = raster['profile']['bounds']
             extent = [bounds.left, bounds.right, bounds.bottom, bounds.top]
             
             # background image?
@@ -216,8 +214,8 @@ def plot_map(raster, loc= None, title= None, figsize= (5,5), cmap= 'viridis', cb
                 im2 = ax.imshow(raster['bground'], extent= extent, origin='upper', cmap= mpl.cm.get_cmap('Greys'))
 
             # nodata?
-            if np.any(img == meta['nodata']):
-                nodata_mask = img == meta['nodata']
+            if np.any(img == profile['nodata']):
+                nodata_mask = img == profile['nodata']
                 img = np.ma.array(img, mask = nodata_mask)
                 cmap.set_bad('white',0.0)
 
@@ -225,14 +223,14 @@ def plot_map(raster, loc= None, title= None, figsize= (5,5), cmap= 'viridis', cb
             if 'paths' in raster.keys():
                 cmap= mpl.cm.get_cmap('Purples')
                 cmap.set_bad('darkgray',0.1)
-                ax.contourf(img, 6, extent=extent, origin= 'upper', cmap= cmap, alpha=0.5)               
+                ax.contourf(img, 6, extent=extent, origin= 'upper', cmap= cmap, alpha=0.5)
                 paths_mask = raster['paths'] == 0.0
 
                 # already a mask?
                 if np.ma.is_masked(img):
                     combined_mask = nodata_mask * paths_mask
                 else:
-                    combined_mask = path_mask
+                    combined_mask = paths_mask
                 
                 img = np.ma.array(raster['paths'], mask= combined_mask)
             
@@ -243,7 +241,7 @@ def plot_map(raster, loc= None, title= None, figsize= (5,5), cmap= 'viridis', cb
             if cbar:
                 fig.colorbar(im, cax= cax)
         else:
-            raise Exception('raster is missing  ''"ras"'' and/or ''"meta"'' keys! ')
+            raise Exception('raster is missing  ''"ras"'' and/or ''"profile"'' keys! ')
     else:
         raise Exception('raster must be a dictionary')
 
