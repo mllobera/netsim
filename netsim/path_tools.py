@@ -1,16 +1,8 @@
 '''
-
+Path_tools module with functions to derive paths
 '''
 
-from __future__ import with_statement
-from collections import OrderedDict
-import rasterio
 import numpy as np
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-import pandas as pd
-import geopandas as gpd
-
 
 def __segment(r0, c0, r1, c1, path, rcs):
     '''
@@ -102,9 +94,7 @@ def create_paths(BLX, BLY, origin, destinations, start_path=0):
     
     Depending on the size of the chamfer window used, backlink arrays may contain jumps that are greater than one cell.
     Hence we need to use an auxiliary function, segment(), to connect these.
-    
-    Include origin???
-    
+        
     '''
 
     # array to store path/s
@@ -150,11 +140,8 @@ def create_paths(BLX, BLY, origin, destinations, start_path=0):
                          'destination': destination,
                          'track': np.array(rcs).T})
 
-        # paths_dict[path_num] ={'origin': origin[0],
-        #                        'destination': destination,
-        #                        'track': np.array(rcs).T}
         
         # add new path
         paths += pth
     
-    return paths, path_lst #paths_dict
+    return paths, path_lst
