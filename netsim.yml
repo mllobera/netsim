@@ -1,0 +1,16 @@
+name: netsim
+
+channels:
+  - conda-forge
+  
+dependencies:
+  - python >= 3.7
+  - numpy >= 1.16.3
+  - geopandas
+  - cython
+  - matplotlib
+  - pandas
+  - jupyter
+  - jupyterlab
+  - rasterio
+  - networkx
