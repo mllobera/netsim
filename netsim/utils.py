@@ -98,7 +98,7 @@ def rc2pt(rc, profile):
     # collecting information
     xul, yll, _ , _ = profile['bounds']
     nrows = profile['height']
-    cellsize = profile['affine'].a
+    cellsize = profile['transform'].a
          
     # calculating x and y
     ys = yll + ((nrows - 1) - r) * cellsize + cellsize / 2
@@ -136,7 +136,7 @@ def pt2rc (pts, profile):
     # collecting information
     xul, _, _, yul = profile['bounds']
     nrows, ncols = profile['height'], profile['width']
-    cellsize = profile['affine'].a
+    cellsize = profile['transform'].a
     
     # convert easting and northings to rows and columns
     r = (yul - pts.y.values) // cellsize
