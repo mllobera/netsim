@@ -296,7 +296,7 @@ def calculate_hillshade(img, az= 135, elev_angle= 40):
     '''
     az = 360.0 - az    
     x, y = np.gradient(img)
-    slope = np.pi/2. - np.arctan(np.sqrt(x*x + y*y))
+    slope = np.pi/2.0 - np.arctan(np.sqrt(x*x + y*y))
     aspect = np.arctan2(-x, y)
     azrad = np.radians(az)
     altituderad = np.radians(elev_angle)
@@ -339,3 +339,69 @@ def plot_network(df, save = None):
     if save:
         output= save+'.png'      
         plt.savefig(fname= output, dpi= 300)
+
+
+def path_stats(df_paths, ras, df, fun={'fun':np.sum, 'name':'sum'}):
+    '''
+    Computes function for each path in dataframe based on raster
+    
+    Parameters
+    ----------
+    
+    df_paths: pandas dataframe
+        dataframe containing information for various paths
+    
+    ras: 2D numpy array
+        raster from where values are going to be extracted
+    
+    df: pandas dataframe
+        original dataframe with location information
+    
+    fun: dictionary
+        two element dictionary:
+            - 'fun':  function to use on extracted data
+            - 'name': function name
+    
+    Results
+    -------
+    
+    df_paths: pandas dataframe
+        original dataframe containing information for various paths updated with results obtained 
+        after using fun on values along each path.
+    
+    Notes
+    -----
+    
+    df_paths dataframe must contain a column with the path track (a 2D numpy array with the row and columns
+    that make up a path)
+    
+    '''
+    # unpack fun
+    f= fun['fun']
+    name = fun['name']
+    
+    # initialize variables
+    path_ids = []
+    path_stats = []  
+    i=0   
+    
+    for _,pth in df_paths.iterrows():
+        
+        # extract current path values
+        path_values = ras[pth['track'][0], pth['track'][1]]
+        
+        # find origin and destination ids
+        sel = (df['r'] == pth['origin'][0]) & (df['c'] == pth['origin'][1])
+        o = df.loc[sel]['id'].values[0]
+        sel = (df['r'] == pth['destination'][0]) & (df['c'] == pth['destination'][1])
+        d = df.loc[sel]['id'].values[0] 
+        
+        # generate statistic
+        path_ids += [(o,d)]
+        path_stats += [f(path_values)]
+    
+    # Update with new information
+    df_paths['path_ids'] = path_ids
+    df_paths[name] = path_stats
+    
+    return df_paths[['id', 'path_ids', 'origin', 'destination', 'track', name]]
