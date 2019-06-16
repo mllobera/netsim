@@ -37,6 +37,10 @@ def read_raster(fn):
         with ro.open(fn) as src:
             profile   = src.profile
             ras    = src.read(1)
+            # change nodata value 
+            ras[ras == profile['nodata']] = -9999
+            
+            # make raster c-contiguous
             ras = np.ascontiguousarray(ras, dtype=np.float64)
             profile['dtype']= 'float64'
             profile['bounds'] = src.bounds
