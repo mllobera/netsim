@@ -1,4 +1,5 @@
-# cython: boundscheck= False, wraparound= False, cdivision= True
+# cython: boundscheck= False, wraparound= False, cdivision= True, language_level=3
+
 
 import numpy as np
 import chamfer as ch
