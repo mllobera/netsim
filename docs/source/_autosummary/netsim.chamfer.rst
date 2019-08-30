@@ -1,0 +1,16 @@
+chamfer
+=======
+
+.. automodule:: netsim.chamfer
+
+   
+   
+   
+
+   
+   
+   
+
+   
+   
+   
