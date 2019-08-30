@@ -1,13 +1,14 @@
-# cython: boundscheck= False, wraparound= False, cdivision= True, language_level=3
+"""
+This module contains functions to calculate an (euclidean) and influence weighted distance transform 
+"""
 
+# cython: boundscheck= False, wraparound= False, cdivision= True, language_level=3, binding= True, embedsignature= True
 
 import numpy as np
-import chamfer as ch
+import netsim.chamfer as ch
 cimport numpy as np
 cimport cython
 from cpython cimport bool
-#copy
-
 
 cdef double __poly(double[:] coef, double x):
     '''
@@ -179,21 +180,22 @@ cdef cy_calculate_iwdt(double[:,:] iwdt_tmp, dict iwdt_dict, int option = 1):
     
 def calculate_iwdt(double[:,:] iwdt, dict iwdt_dict, int option = 1):
     '''
-    Wrapper function for cy_calculate_iwdt.
+    calculates influence weighted distance transform
 
     Parameters
     ----------
     iwdt: 2D numpy array
-        2D Numpy array with source cells initiated to a large none-zero value
+        array with source cells initiated to a large none-zero value
     
     iwdt_dict: dictionary
-        dictionary containing information needed to calculate iwdt (see notes)
+        dictionary containing information needed to calculate iwdt (see *Notes* below)
     
-    option int
+    option: int
         parameter used to determine the output:
-            1. Returns iwdt and backlinks.
-            2. Return iwdt.
-            3. Returns backlinks.
+
+            1. Returns *iwdt* and *backlinks*
+            2. Return *iwdt*
+            3. Returns *backlinks*
 
     Returns
     -------
@@ -201,23 +203,26 @@ def calculate_iwdt(double[:,:] iwdt, dict iwdt_dict, int option = 1):
         influence weighted distance transform
     
     blx, bly: 2D numpy arrays, *optional*
-        backlinks of distance transform
+        influence weighted distance transform backlinks
 
     Notes
     -----
 
-    To calculate influence weighted distance transform, it is necessary to generate a dictionary (iwdt_dict) with 
+    Wrapper function for the cython function ``cy_calculate_iwdt()``. To calculate
+    *influence weighted distance transform*, it is necessary to generate a dictionary (``iwdt_dict{}``) with 
     the following entries:
-        - dem : 2D numpy array
-            elevation data
-        - netcost:  2D numpy array
-            cost value between 0 and 1. Must have the same dimensions as dem
-        - cellsize: float
-            cellsize
-        - weight: float (or 2d numpy array)
-            weight associated with netcost. Must be a value between 0 and 1
-        - coef: numpy array 
-            coefficients for polynomial mapping gradient to cost
+    
+    - 'dem:' - 2D numpy array
+      array with elevation data
+    - 'netcost:' -  2D numpy array
+      array with values between 0 and 1. **Must have the same dimensions as *dem**
+    - 'cellsize:' - float
+      cellsize
+    - 'weight:'- float
+      weight associated with netcost. Must be a value between 0 and 1
+    - 'coef:'- numpy array 
+      coefficients for polynomial mapping gradient to cost
+
     '''
 
     return cy_calculate_iwdt(iwdt, iwdt_dict, option)
@@ -325,22 +330,23 @@ cdef cy_calculate_dt(double[:,:] dt_tmp, float cellsize, int option = 1):
 
 def calculate_dt(double[:,:] dt, float cellsize, int option = 1):
     '''
-    Wrapper for cy_calculate_dt.
+    calculates euclidean distance transform. 
     
     Parameters
     ----------
 
     dt: 2D numpy array
-       2D numpy array with source cells initiated to a large none-zero value
+       array with source cells initiated to a large none-zero value
 
     cellsize: float
         cellsize
     
-    option int
+    option: int
         parameter used to determine the output:
-            1. Returns iwdt and backlinks.
-            2. Return iwdt.
-            3. Returns backlinks.
+
+            1. Returns *dt* and *backlinks*
+            2. Return *dt*
+            3. Returns *backlinks*
         
     Returns
     -------
@@ -348,7 +354,11 @@ def calculate_dt(double[:,:] dt, float cellsize, int option = 1):
         distance transform
     
     blx, bly: 2D numpy arrays, *optional*
-        backlinks of distance transform
+        distance transform backlinks
+    
+    Notes
+    -----
+    This is a wrapper for the cython function ``cy_calculate_dt()``
 
     '''
     return cy_calculate_dt(dt, cellsize, option)
