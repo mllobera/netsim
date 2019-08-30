@@ -1,5 +1,5 @@
 '''
-Path_tools module with functions to derive paths
+This module contains functions used to generate paths from backlink files
 '''
 
 import numpy as np
@@ -62,17 +62,17 @@ def __segment(r0, c0, r1, c1, path, rcs):
     return path, rcs
 
 
-def create_paths(BLX, BLY, origin, destinations, start_path=0):
+def create_paths(blx, bly, origin, destinations, start_path=0):
     '''
     Creates a path to each destination.
     
     Parameters
     ----------
     
-    BLX: 2D numpy array
+    blx: 2D numpy array
         horizontal backlink 
     
-    BLY: 2D numpy array
+    bly: 2D numpy array
         vertical backlink
     
     origin: list
@@ -84,21 +84,20 @@ def create_paths(BLX, BLY, origin, destinations, start_path=0):
     Returns
     -------
     paths: 2D numpy array
-        sum of all paths
+        array that results from adding all paths
     
-    path_lst: list
-        a list of paths each containing destination, origin and track 
+    path_lst: list of dictionaries
+        a list of paths each represented by a dictionary containing destination, origin and track 
     
     Notes
     -----
     
     Depending on the size of the chamfer window used, backlink arrays may contain jumps that are greater than one cell.
-    Hence we need to use an auxiliary function, segment(), to connect these.
         
     '''
 
     # array to store path/s
-    paths = np.zeros_like(BLX, dtype=np.int16)
+    paths = np.zeros_like(blx, dtype=np.int16)
     
     # path number
     path_num= start_path
@@ -112,7 +111,7 @@ def create_paths(BLX, BLY, origin, destinations, start_path=0):
         for destination in destinations:
             
             # array to store current path
-            pth = np.zeros_like(BLX, dtype=np.uint16)
+            pth = np.zeros_like(blx, dtype=np.uint16)
             
             # row & columns of current path
             rcs = []
@@ -120,11 +119,11 @@ def create_paths(BLX, BLY, origin, destinations, start_path=0):
             # initialize first cell location
             r0, c0 = destination
 
-            while (BLX[r0, c0] != 0) or (BLY[r0, c0] != 0):
+            while (blx[r0, c0] != 0) or (bly[r0, c0] != 0):
 
                 # update to new path location
-                r1 = r0 + BLX[r0, c0]
-                c1 = c0 + BLY[r0, c0]
+                r1 = r0 + blx[r0, c0]
+                c1 = c0 + bly[r0, c0]
 
                 # add segment to new path location
                 pth, rcs = __segment(r0, c0, r1, c1, pth, rcs)
@@ -151,7 +150,7 @@ def create_paths(BLX, BLY, origin, destinations, start_path=0):
     else: # only one destination
 
         # array to store current path
-        pth = np.zeros_like(BLX, dtype=np.uint16)
+        pth = np.zeros_like(blx, dtype=np.uint16)
         
         # row & columns of current path
         rcs = []
@@ -159,11 +158,11 @@ def create_paths(BLX, BLY, origin, destinations, start_path=0):
         # initialize first cell location
         r0, c0 = destinations[0]
 
-        while (BLX[r0, c0] != 0) or (BLY[r0, c0] != 0):
+        while (blx[r0, c0] != 0) or (bly[r0, c0] != 0):
 
             # update to new path location
-            r1 = r0 + BLX[r0, c0]
-            c1 = c0 + BLY[r0, c0]
+            r1 = r0 + blx[r0, c0]
+            c1 = c0 + bly[r0, c0]
 
             # add segment to new path location
             pth, rcs = __segment(r0, c0, r1, c1, pth, rcs)

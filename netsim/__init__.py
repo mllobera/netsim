@@ -1,6 +1,5 @@
-# Top level for network simulation package
+# Top level for Network Simulation package
 name = 'netsim'
+version = '0.0.1'
+
 # from netsim.netsim import *
-# from netsim.netgen import *
-# from netsim.path_tools import *
-# from netsim.utils import *

@@ -1,5 +1,5 @@
 '''
-Utils module with various i/o and utility functions
+This module contains various i/o and utility functions
 '''
 
 from __future__ import with_statement
@@ -14,7 +14,7 @@ import networkx as nx
 
 def read_raster(fn):
     '''
-    Reads raster
+    Reads raster into a 2D numpy array.
     
     Parameters
     ----------
@@ -78,7 +78,7 @@ def add_polyline(track, gdf):
 
 def rc2pt(rc, profile):
     '''
-    Returns the center x, y coordinates of cells at row, column locations.
+    Returns the center x, y coordinates of cells at (row, column) locations.
     
     Parameters
     ----------
@@ -93,8 +93,7 @@ def rc2pt(rc, profile):
     -------
     pts: list
         list of tuples representing (x,y) coordinates
-    
-    No checks.
+  
     '''
     
     r, c = rc[0,:], rc[1,:]
@@ -114,12 +113,12 @@ def rc2pt(rc, profile):
 
 def pt2rc (pts, profile):
     '''
-    Returns row and column
+    Returns row and column.
     
     Parameters
     ----------
     
-    pts: shapely point
+    pts: *shapely* point
         points
     
     profile: dictionary
@@ -128,7 +127,7 @@ def pt2rc (pts, profile):
     Returns
     -------
     
-    r,c: numpy arrays
+    r,c: tuple of numpy arrays
         rows and columns
     
     Notes
@@ -160,7 +159,7 @@ def plot_map(raster, loc= None, title= None, figsize= (5,5), cmap= 'viridis', cb
     ras: dictionary
         dictionary must have at least two entries: 'ras', 2D numpy array representing a raster; 'profile', profile
         information (from *rasterio*) about the raster. Optional entries are 'bground', a 2D numpy array
-        representing a background raster and 'paths', representing a network of paths (it assumed that 'ras'
+        representing a background raster and 'paths', representing a network of paths (it is assumed that 'ras'
         represents a DEM).
     
     loc: dictionary or geodataframe
@@ -174,17 +173,14 @@ def plot_map(raster, loc= None, title= None, figsize= (5,5), cmap= 'viridis', cb
         Size of figure. *Default*: (5,5)
     
     cmap: string
-        name of the matplotlib colormap. *Default*: 'viridis'
+        name of the matplotlib colormap. *Default:* 'viridis'
     
     cbar: boolean
-        if True colorbar is displayed. *Default*: False
+        if True colorbar is displayed. *Default:* False
     
     save: string
-        if not empty then name of the output image (default is None)
+        if not empty then name of the output image. *Default: None*
         
-    Returns
-    -------
-    None
         
     '''
    
@@ -289,13 +285,13 @@ def calculate_hillshade(img, az= 135, elev_angle= 40):
     ----------
     
     img: 2D numpy array
-        heightmap
+        array with elevation values
     
     az: float
-        Horizontal direction of the source of light (degrees)
+        Horizontal direction of the source of light (degrees). *Default:* 135 degrees
     
     elev_angle: float
-        elevation angle of the source of light (degrees)
+        elevation angle of the source of light (degrees). *Default:* 40 degrees
     
     '''
     az = 360.0 - az    
@@ -316,12 +312,16 @@ def plot_network(df, save = None):
     Parameters
     ----------
 
-    df : pandas dataframe
+    df : dataframe
          contains the ids of origin and destination of each path in the network
+    
+    save: string
+        filename ('.png' added). *Default: None*
 
     Notes
     -----
-        The dataframe above is the output from running netgen.network_layout().
+        The dataframe above is the output from running ``netgen.network_layout()``. To save output user
+        must supply *filename*. An image file with '.png' extension will be saved to local directory.
 
     '''
 
@@ -345,38 +345,39 @@ def plot_network(df, save = None):
         plt.savefig(fname= output, dpi= 300)
 
 
-def path_stats(df_paths, ras, df, fun={'fun':np.sum, 'name':'sum'}):
+def path_stats(df_paths, ras, df, fun={'fun_dic':np.sum, 'name':'sum'}):
     '''
-    Computes function for each path in dataframe based on raster
+    Applies ``<function>`` to values in *ras* along each path in *df_paths* dataframe
     
     Parameters
     ----------
     
-    df_paths: pandas dataframe
-        dataframe containing information for various paths
+    df_paths: dataframe
+        contains information for various paths
     
     ras: 2D numpy array
         raster from where values are going to be extracted
     
-    df: pandas dataframe
+    df: dataframe
         original dataframe with location information
     
-    fun: dictionary
-        two element dictionary:
-            - 'fun':  function to use on extracted data
-            - 'name': function name
-    
-    Results
+    fun_dic: dictionary 
+       a dictionary with two entries:
+
+       - **<function>**:  function to use on extracted data
+       - **name**: function name
+       
+    Returns
     -------
     
-    df_paths: pandas dataframe
-        original dataframe containing information for various paths updated with results obtained 
-        after using fun on values along each path.
+    df_paths: dataframe
+        updated version of *df_paths* with an additional *name* column containing the results obtained 
+        after applying *<function>* on *ras* values along each path.
     
     Notes
     -----
     
-    df_paths dataframe must contain a column with the path track (a 2D numpy array with the row and columns
+    **df_paths** dataframe must contain a column with the path track (a 2D numpy array with the row and columns
     that make up a path)
     
     '''

@@ -1,6 +1,5 @@
-name = "netgen"
 """
-this module offers all functions needed to generate networks for netsim  
+This module contains all functions needed to setup and run a network simulation  
 
 """
 
@@ -31,34 +30,37 @@ def setup(df):
     
     '''
     Checks and corrects input geo/pandas dataframe.
+
     
     Parameters
     ----------
     
-    df: dataframe
-        dataframe containing locations used for the simulation
+    df: geo/dataframe
+        contains locations used in the simulation
         
     
     Returns
     -------
     c_df: dataframe
-        correcte dataframe ready for network simulation
+        corrected geo/dataframe ready for netsim
     
     Notes
     -----
     
-    This function checks for the existence columns needed in the **netsim** simulation. Columns must have the appropriate header (as shown below).
+    This function checks for the existence columns needed in the *netsim* simulation. Columns must have the appropriate header (as shown below).
     Columns that do not exist will be generated and populated with default values. The validity of values in existing columns is also checked. Minor
-    errors and corrections are notificated. Major errors raise an exception error.
+    errors and corrections are notified. Major errors raise an exception error.
     
     The following columns need to be present:
-       - *id*: exclusive identifier for each location. 
-       - *group*: identifies a location as being part of a specific group. Groups can be of any size. Groups of size 1 will automatically mixed with the following
-       group. A column with a single group affiliation will be created in case this column does not exist (default value is 1).
-       - *seq*: identifies rank/ordering of a location within a group. There are two possible scenarios:
-          - *No ordering/ ranking (default)*. Within each group a **single** value is used for all sites in that group. Depending on the number of locations in the
-          group the simulation with either generate all possible permutations or *num_samples* of randomized samples (with repetition).
-          - *Ordering /ranking*. Identify all sites in a group with a increasing monotonic sequence of numbers (no repetitions).
+
+    - *id*: exclusive identifier for each location. 
+    - *group*: identifies a location as being part of a specific group. Groups can be of any size. Groups of size 1 will automatically mixed with the following
+      group. A column with a single group affiliation will be created in case this column does not exist (default value is 1).
+    - *seq*: identifies rank/ordering of a location within a group. There are two possible scenarios:
+
+      - *No ordering/ ranking (default)*. Within each group a **single** value is used for all sites in that group. Depending on the number of locations in the
+        group the simulation with either generate all possible permutations or *num_samples* of randomized samples (with repetition).
+      - *Ordering /ranking*. Identify all sites in a group with a increasing monotonic sequence of numbers (no repetitions).
     
     '''
     
@@ -160,17 +162,17 @@ def create_network_generator(df):
     
     Parameters
     ---------
-    df: dataframe
-         list of locations, group membership and parameters used to network simulation
+    df: geo/dataframe
+        contains locations, group membership and parameters used in netsim
          
     Returns
     -------
     
-    netgenetor: list
+    netgenetr: list of generators
         network generator
     
     df_net_info: dataframe
-        information about each network
+        contains information about each network
     
     total_num_iter: int
         total number of iterations
@@ -179,14 +181,17 @@ def create_network_generator(df):
     -----
 
     This function returns three different outputs:
-       - It primarily returns a network generator that results from the cartesian product of separate group generators
-        (one per set of locations). A *group* generator can be of three different types (single, sample and permutation)
-            - *single*: returns always the same combination of locations.
-            - *sample*: returns a shuffled version of the locations. *n.b.* repetition can occur.
-            - *permutation*: returns permutation of the locations (no repetition).
-       - Generates a dataframe, *df_net_info*, containing generator information for each group (number of locations, total
-        number of iterations, generator types.
-       - total number of iterations that results from the combination of all group generators.
+
+       1. It primarily returns a network generator that results from the cartesian product of separate generators
+          (one per group of locations as identified thru the *group* column). Each, *group*, generator may be of one of these
+          three types:
+
+          - *single*: returns always the same combination of locations.
+          - *sample*: returns a shuffled version of the locations. *n.b.* repetition can occur.
+          - *permutation*: returns permutation of the locations (no repetition).
+       2. Generates a dataframe, *df_net_info*, containing generator information for each group (number of locations, total
+          number of iterations, generator type).
+       3. Total number of iterations that results from the combination of all group generators.
        
     '''
 
@@ -260,7 +265,7 @@ def create_network_generator(df):
                                                                                             # iteration, iteration info and 
     return product(*netgentor), df_net_info, total_num_iter                                 # total number of iterations
 
-def network_layout(df, iteration, iter_num, df_net=None, twoway= False, opt='close'):
+def network_layout(df, iteration, iter_num, df_net= None, twoway= False, opt= 'close'):
     '''
         Creates a dataframe with information for each path in network.
         
@@ -268,44 +273,45 @@ def network_layout(df, iteration, iter_num, df_net=None, twoway= False, opt='clo
     ----------
     
     df: dataframe
-         list of locations, group membership used to generate network
+         contains list of locations, group membership used to generate network
         
-    net_iteration: tuple of tuples
+    iteration: tuple of tuples
         a tuple containing one or several tuples, one per group, representing a single network iteration
     
     iter_num: int
         iteration identifier
     
     df_net: dataframe, optional
-        dataframe containing the identifiers of the origin and destination of each path plus the iteration identifier
+        contains the identifiers of the origin and destination of each path plus the iteration identifier
     
     twoway: boolean
-        if True two-way paths are generated for each pair of locations in network. Default: False.
+        if **True** two-way paths are generated for each pair of locations in network. *Default*: **False**.
     
     opt: string
-        Type of network to generate. The options are as follows:
+        type of network to generate. The options are as follows:
+
         - *close*: This option defines an independent close network of paths for each group. In this network, the locations are connected
-        in order so that the first location is connected to the second one and so one until the last location is conected to the first.
-        No network is defined if the first group is made of a single location.
+          in order so that the first location is connected to the second one and so one until the last location is conected to the first.
+          No network is defined if the first group is made of a single location.
         - *central*: This option defines a network of that consists of centralized set of paths from the locations of the first group to 
-        all of the locations in the remaining groups.
+          all of the locations in the remaining groups.
         - *decentral*: This option defines a network of paths so that the locations of each group are connected to the locations of the following
-        (lower level) group.
+          (lower level) group.
         - *distributed*: This option defines a network of paths similar to *decentral*, where the locations of each group are connected to
-        the locations of the following (lower level) group, and in addition, locations within each group are interconnected.
+          the locations of the following (lower level) group, and in addition, locations within each group are interconnected.
         - *all*: This option defines a network of paths from amongst all locations.
     
     Returns
     -------
     
     df_net: dataframe, optional
-      dataframe containing the identifiers of the origin and destination of each path plus the iteration identifier
+      contains the identifiers of the origin and destination of each path plus the iteration identifier
         
     Notes
     -----
     
     This function takes a dataframe with locations, a list of lists containing an ordering of these locations obtained after running 
-    ```create_network_generator()``` function and a iteration identifier number. It generates, or updates, a dataframe with the 
+    ``create_network_generator()`` function and a iteration identifier number. It generates, or updates, the *df_net* dataframe with the 
     identifiers of the origin and destination of each path that make up the path network for this specific iteration. 
 
     '''
