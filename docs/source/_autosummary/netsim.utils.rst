@@ -11,7 +11,6 @@ utils
    
       add_polyline
       calculate_hillshade
-      path_stats
       plot_map
       plot_network
       pt2rc

@@ -10,6 +10,7 @@ path\_tools
    .. autosummary::
    
       create_paths
+      path_stats
    
    
 

@@ -1,7 +1,7 @@
-netsim
-======
+simulate
+========
 
-.. automodule:: netsim.netsim
+.. automodule:: netsim.simulate
 
    
    

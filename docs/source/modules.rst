@@ -6,9 +6,9 @@ Modules
    :toctree: _autosummary
  
    netsim.chamfer
-   netsim.iwdt
-   netsim.netgen
-   netsim.netsim
+   netsim.cost
+   netsim.generate
+   netsim.simulate
    netsim.path_tools
    netsim.utils
 

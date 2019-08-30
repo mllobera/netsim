@@ -1,7 +1,7 @@
-iwdt
+cost
 ====
 
-.. automodule:: netsim.iwdt
+.. automodule:: netsim.cost
 
 
    

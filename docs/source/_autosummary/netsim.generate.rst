@@ -1,7 +1,7 @@
-netgen
-======
+generate
+========
 
-.. automodule:: netsim.netgen
+.. automodule:: netsim.generate
 
    
    
@@ -9,9 +9,9 @@ netgen
 
    .. autosummary::
    
+      check
       create_network_generator
       network_layout
-      setup
    
    
 
