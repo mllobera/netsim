@@ -2,4 +2,4 @@
 name = 'netsim'
 version = '0.0.1'
 
-# from netsim.netsim import *
+# from netsim.simulate import *

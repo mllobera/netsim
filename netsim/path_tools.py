@@ -1,8 +1,10 @@
 '''
-This module contains functions used to generate paths from backlink files
+This module contains functions used to generate paths and explore them.
 '''
 
 import numpy as np
+import pandas as pd
+import geopandas as gpd
 
 def __segment(r0, c0, r1, c1, path, rcs):
     '''
@@ -185,3 +187,70 @@ def create_paths(blx, bly, origin, destinations, start_path=0):
         paths += pth
 
         return paths, path_dict
+
+
+def path_stats(df_paths, ras, df, fun_dic={'fun':np.sum, 'name':'sum'}):
+    '''
+    Applies ``<function>`` to values in *ras* along each path in *df_paths* dataframe
+    
+    Parameters
+    ----------
+    
+    df_paths: dataframe
+        contains information for various paths
+    
+    ras: 2D numpy array
+        raster from where values are going to be extracted
+    
+    df: dataframe
+        original dataframe with location information
+    
+    fun_dic: dictionary 
+       a dictionary with two entries:
+
+       - **<function>**:  function to use on extracted data
+       - **name**: function name
+       
+    Returns
+    -------
+    
+    df_paths: dataframe
+        updated version of *df_paths* with an additional *name* column containing the results obtained 
+        after applying *<function>* on *ras* values along each path.
+    
+    Notes
+    -----
+    
+    **df_paths** dataframe must contain a column with the path track (a 2D numpy array with the row and columns
+    that make up a path)
+    
+    '''
+    # unpack fun
+    f= fun_dic['fun']
+    name = fun_dic['name']
+    
+    # initialize variables
+    path_ids = []
+    path_stats = []  
+    i=0   
+    
+    for _,pth in df_paths.iterrows():
+        
+        # extract current path values
+        path_values = ras[pth['track'][0], pth['track'][1]]
+        
+        # find origin and destination ids
+        sel = (df['r'] == pth['origin'][0]) & (df['c'] == pth['origin'][1])
+        o = df.loc[sel]['id'].values[0]
+        sel = (df['r'] == pth['destination'][0]) & (df['c'] == pth['destination'][1])
+        d = df.loc[sel]['id'].values[0] 
+        
+        # generate statistic
+        path_ids += [(o,d)]
+        path_stats += [f(path_values)]
+    
+    # Update with new information
+    df_paths['path_ids'] = path_ids
+    df_paths[name] = path_stats
+    
+    return df_paths[['id', 'path_ids', 'origin', 'destination', 'track', name]]

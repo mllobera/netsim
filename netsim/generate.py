@@ -1,5 +1,5 @@
 """
-This module contains all functions needed to setup and run a network simulation  
+This module contains all functions needed to setup a network simulation  
 
 """
 
@@ -11,7 +11,7 @@ from itertools import permutations, product
 from math import factorial
 
 
-# constants used in netgen 
+# constants used in generate 
 
 NSAMPLES = 100
 #  maximum number of samples to be drawn from any group.
@@ -26,7 +26,7 @@ MAX_ITERATIONS = 5000
 # maximum total number of iterations allowed in the simulation
 
 
-def setup(df):
+def check(df):
     
     '''
     Checks and corrects input geo/pandas dataframe.

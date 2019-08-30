@@ -6,7 +6,7 @@ This module contains the main function to run a Network Simulation ``simulation(
 import numpy as np
 import netsim.path_tools as pt
 from collections import OrderedDict
-from netsim.iwdt import calculate_iwdt, calculate_dt
+from netsim.cost import calculate_iwdt, calculate_dt
 
 
 def simulation(pts, net_layout, cost_dict, netsim_dict):
@@ -45,6 +45,9 @@ def simulation(pts, net_layout, cost_dict, netsim_dict):
     Notes
     -----
     
+    ``simulate()`` generates a network of paths using the ``net_layout`` dataframe generated with the
+    functions from the **generate** module.
+
     The ``netsim_dict{}`` must contain the following entries:
 
     - 'i: ' - float
@@ -52,12 +55,12 @@ def simulation(pts, net_layout, cost_dict, netsim_dict):
     - 'Gmax: ' - float
       maximum ground potential.
     - 'T: ' - float
-      1/T represents the residuality of a path.
+      1/T represents the *residuality* of a path.
     - 'alpha: ' - float
       coefficient calculated from :math:`\\alpha_1 = \\frac {d_0} {ln(1 - NC_0)}`
     
 
-    While the ``cost_dict{}`` must contain the same entries as ``iwdt_dict{}`` see **IWDT** module
+    While the ``cost_dict{}`` must contain the same entries as ``iwdt_dict{}`` see **cost** module
 
         
     '''
