@@ -25,10 +25,10 @@ import numpy as np
 extensions = [
     Extension(
         # path.name where to find cython module
-        name = "netsim.iwdt",
+        name = "netsim.cost",
 
         # path/name of cython pyx. Compilation is required 
-        sources = ["netsim/iwdt.pyx"],
+        sources = ["netsim/cost.pyx"],
 
         # needed to get access to numpy inside cython
         include_dirs = [np.get_include()],
