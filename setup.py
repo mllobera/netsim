@@ -1,21 +1,25 @@
-"""A setuptools based setup module.
+"""
+A setuptools based setup module.
 See:
 https://packaging.python.org/en/latest/distributing.html
 https://github.com/pypa/sampleproject
+
 """
 
 # Always prefer setuptools over distutils
 from setuptools import setup, find_packages
 from setuptools.extension import Extension
-from setuptools.command.build_ext import build_ext
+#from setuptools.command.build_ext import build_ext
+#from Cython.Build import cythonize
+from Cython.Distutils import build_ext
 import numpy as np
-from os import path
 
-here = path.abspath(path.dirname(__file__))
 
 # Get the long description from the README file
-with open(path.join(here, 'README.md'), encoding='utf-8') as f:
-    long_description = f.read()
+# from os import path
+# here = path.abspath(path.dirname(__file__))
+# with open(path.join(here, 'README.md'), encoding='utf-8') as f:
+#     long_description = f.read()
 
 # cython module as an extension - MLL
 extensions = [
@@ -27,8 +31,8 @@ extensions = [
         sources = ["netsim/iwdt.pyx"],
 
         # needed to get access to numpy inside cython
-        include_dirs = [np.get_include()]
-    )
+        include_dirs = [np.get_include()],
+    ),
 ]
 
 
@@ -70,7 +74,7 @@ setup(
     #
     # This field corresponds to the "Description" metadata field:
     # https://packaging.python.org/specifications/core-metadata/#description-optional
-    long_description=long_description,  # Optional
+    # long_description=long_description,  # Optional
 
     # Denotes that our long_description is in Markdown; valid values are
     # text/plain, text/x-rst, and text/markdown
@@ -82,7 +86,7 @@ setup(
     #
     # This field corresponds to the "Description-Content-Type" metadata field:
     # https://packaging.python.org/specifications/core-metadata/#description-content-type-optional
-    long_description_content_type='text/markdown',  # Optional (see note above)
+    # long_description_content_type='text/markdown',  # Optional (see note above)
 
     # This should be a valid link to your project's main homepage.
     #
@@ -117,14 +121,14 @@ setup(
 
         # Specify the Python versions you support here. In particular, ensure
         # that you indicate whether you support Python 2, Python 3 or both.
-        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
     ],
 
     # This field adds keywords for your project which will appear on the
     # project page. What does your project relate to?
     #
     # Note that this is a string of words separated by whitespace, not a list.
-    keywords='network, distance_transform cost_surface gis geospatial',  # Optional
+    keywords='network distance_transform cost_surface gis geospatial',  # Optional
 
     # You can just specify package directories manually here if your project is
     # simple. Or you can use find_packages().
@@ -135,7 +139,7 @@ setup(
     #
     #   py_modules=["my_module"],
     #
-    packages=find_packages(exclude=['docs', 'tests']),  # Required
+    packages= find_packages(exclude=['docs', 'tests']),  # Required
 
     # This field lists other packages that your project depends on to run.
     # Any package you put here will be installed by pip when your project is
@@ -143,9 +147,10 @@ setup(
     #
     # For an analysis of "install_requires" vs pip's requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['numpy>= 1.16.3', 'cython>=0.29.7', 'networkx>=2.3'],  # Optional
+    install_requires=['numpy>= 1.16', 'cython>=0.29.7', 'networkx>=2.3'],  # Optional
 
     # Include here extensions - MLL
+    #ext_modules = cythonize(extensions),
     ext_modules = extensions, #Optional
 
     # Include comands needed to be executed - MLL
