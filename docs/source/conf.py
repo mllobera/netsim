@@ -94,6 +94,12 @@ html_theme = 'sphinx_rtd_theme'
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
+# package logo to appear everywhere
+html_logo = '../images/Netsim_Logo_xsmall.png'
+
+# package icon
+html_favicon = '../images/Netsim_Logo_icon.ico'
+
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
