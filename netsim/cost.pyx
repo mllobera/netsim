@@ -185,7 +185,8 @@ def calculate_iwdt(double[:,:] iwdt, dict iwdt_dict, int option = 1):
     Parameters
     ----------
     iwdt: 2D numpy array
-        array with source cells initiated to a large none-zero value
+        array with source cells initiated to zero and remaining cells to 
+        a large none-zero value (typically 999999.0)
     
     iwdt_dict: dictionary
         dictionary containing information needed to calculate iwdt (see *Notes* below)
@@ -193,9 +194,9 @@ def calculate_iwdt(double[:,:] iwdt, dict iwdt_dict, int option = 1):
     option: int
         parameter used to determine the output:
 
-            1. Returns *iwdt* and *backlinks*
-            2. Return *iwdt*
-            3. Returns *backlinks*
+        1. Returns *iwdt*, *blx*, *bly* (*backlinks*)
+        2. Return *iwdt* only
+        3. Returns *blx*, *bly* (*backlinks*) 
 
     Returns
     -------
@@ -212,15 +213,15 @@ def calculate_iwdt(double[:,:] iwdt, dict iwdt_dict, int option = 1):
     *influence weighted distance transform*, it is necessary to generate a dictionary (``iwdt_dict{}``) with 
     the following entries:
     
-    - 'dem:' - 2D numpy array
+    - **'dem:'** - 2D numpy array
       array with elevation data
-    - 'netcost:' -  2D numpy array
+    - **'netcost:'** -  2D numpy array
       array with values between 0 and 1. **Must have the same dimensions as *dem**
-    - 'cellsize:' - float
+    - **'cellsize:'** - float
       cellsize
-    - 'weight:'- float
+    - **'weight:'**- float
       weight associated with netcost. Must be a value between 0 and 1
-    - 'coef:'- numpy array 
+    - **'coef:'**- numpy array 
       coefficients for polynomial mapping gradient to cost
 
     '''
@@ -336,7 +337,8 @@ def calculate_dt(double[:,:] dt, float cellsize, int option = 1):
     ----------
 
     dt: 2D numpy array
-       array with source cells initiated to a large none-zero value
+       array with source cells initiated to zero and remaining cells to 
+       a large none-zero value (typically 999999.0)
 
     cellsize: float
         cellsize
@@ -344,9 +346,9 @@ def calculate_dt(double[:,:] dt, float cellsize, int option = 1):
     option: int
         parameter used to determine the output:
 
-            1. Returns *dt* and *backlinks*
-            2. Return *dt*
-            3. Returns *backlinks*
+        1. Returns *dt*, *blx*, *bly* (*backlinks*)
+        2. Return *dt* only
+        3. Returns *blx*, *bly* (*backlinks*) 
         
     Returns
     -------
