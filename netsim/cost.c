@@ -1215,7 +1215,7 @@ struct __pyx_opt_args_6netsim_4cost_cy_calculate_iwdt {
   int option;
 };
 
-/* "netsim/cost.pyx":232
+/* "netsim/cost.pyx":233
  * 
  * 
  * cdef cy_calculate_dt(double[:,:] dt_tmp, float cellsize, int option = 1):             # <<<<<<<<<<<<<<
@@ -5408,7 +5408,7 @@ __pyx_t_12 = __pyx_memoryview_fromslice(__pyx_t_13, 2, (PyObject *(*)(char *)) _
 
 /* Python wrapper */
 static PyObject *__pyx_pw_6netsim_4cost_1calculate_iwdt(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6netsim_4cost_calculate_iwdt[] = "\n    calculates influence weighted distance transform\n\n    Parameters\n    ----------\n    iwdt: 2D numpy array\n        array with source cells initiated to a large none-zero value\n    \n    iwdt_dict: dictionary\n        dictionary containing information needed to calculate iwdt (see *Notes* below)\n    \n    option: int\n        parameter used to determine the output:\n\n            1. Returns *iwdt* and *backlinks*\n            2. Return *iwdt*\n            3. Returns *backlinks*\n\n    Returns\n    -------\n    iwdt: 2D numpy array, *optional*\n        influence weighted distance transform\n    \n    blx, bly: 2D numpy arrays, *optional*\n        influence weighted distance transform backlinks\n\n    Notes\n    -----\n\n    Wrapper function for the cython function ``cy_calculate_iwdt()``. To calculate\n    *influence weighted distance transform*, it is necessary to generate a dictionary (``iwdt_dict{}``) with \n    the following entries:\n    \n    - 'dem:' - 2D numpy array\n      array with elevation data\n    - 'netcost:' -  2D numpy array\n      array with values between 0 and 1. **Must have the same dimensions as *dem**\n    - 'cellsize:' - float\n      cellsize\n    - 'weight:'- float\n      weight associated with netcost. Must be a value between 0 and 1\n    - 'coef:'- numpy array \n      coefficients for polynomial mapping gradient to cost\n\n    ";
+static char __pyx_doc_6netsim_4cost_calculate_iwdt[] = "\n    calculates influence weighted distance transform\n\n    Parameters\n    ----------\n    iwdt: 2D numpy array\n        array with source cells initiated to zero and remaining cells to \n        a large none-zero value (typically 999999.0)\n    \n    iwdt_dict: dictionary\n        dictionary containing information needed to calculate iwdt (see *Notes* below)\n    \n    option: int\n        parameter used to determine the output:\n\n        1. Returns *iwdt*, *blx*, *bly* (*backlinks*)\n        2. Return *iwdt* only\n        3. Returns *blx*, *bly* (*backlinks*) \n\n    Returns\n    -------\n    iwdt: 2D numpy array, *optional*\n        influence weighted distance transform\n    \n    blx, bly: 2D numpy arrays, *optional*\n        influence weighted distance transform backlinks\n\n    Notes\n    -----\n\n    Wrapper function for the cython function ``cy_calculate_iwdt()``. To calculate\n    *influence weighted distance transform*, it is necessary to generate a dictionary (``iwdt_dict{}``) with \n    the following entries:\n    \n    - **'dem:'** - 2D numpy array\n      array with elevation data\n    - **'netcost:'** -  2D numpy array\n      array with values between 0 and 1. **Must have the same dimensions as *dem**\n    - **'cellsize:'** - float\n      cellsize\n    - **'weight:'**- float\n      weight associated with netcost. Must be a value between 0 and 1\n    - **'coef:'**- numpy array \n      coefficients for polynomial mapping gradient to cost\n\n    ";
 static PyMethodDef __pyx_mdef_6netsim_4cost_1calculate_iwdt = {"calculate_iwdt", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_6netsim_4cost_1calculate_iwdt, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6netsim_4cost_calculate_iwdt};
 static PyObject *__pyx_pw_6netsim_4cost_1calculate_iwdt(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   __Pyx_memviewslice __pyx_v_iwdt = { 0, 0, { 0 }, { 0 }, { 0 } };
@@ -5499,7 +5499,7 @@ static PyObject *__pyx_pf_6netsim_4cost_calculate_iwdt(CYTHON_UNUSED PyObject *_
   struct __pyx_opt_args_6netsim_4cost_cy_calculate_iwdt __pyx_t_2;
   __Pyx_RefNannySetupContext("calculate_iwdt", 0);
 
-  /* "netsim/cost.pyx":228
+  /* "netsim/cost.pyx":229
  *     '''
  * 
  *     return cy_calculate_iwdt(iwdt, iwdt_dict, option)             # <<<<<<<<<<<<<<
@@ -5509,7 +5509,7 @@ static PyObject *__pyx_pf_6netsim_4cost_calculate_iwdt(CYTHON_UNUSED PyObject *_
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_2.__pyx_n = 1;
   __pyx_t_2.option = __pyx_v_option;
-  __pyx_t_1 = __pyx_f_6netsim_4cost_cy_calculate_iwdt(__pyx_v_iwdt, __pyx_v_iwdt_dict, &__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 228, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_6netsim_4cost_cy_calculate_iwdt(__pyx_v_iwdt, __pyx_v_iwdt_dict, &__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 229, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -5535,7 +5535,7 @@ static PyObject *__pyx_pf_6netsim_4cost_calculate_iwdt(CYTHON_UNUSED PyObject *_
   return __pyx_r;
 }
 
-/* "netsim/cost.pyx":232
+/* "netsim/cost.pyx":233
  * 
  * 
  * cdef cy_calculate_dt(double[:,:] dt_tmp, float cellsize, int option = 1):             # <<<<<<<<<<<<<<
@@ -5633,19 +5633,19 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
     }
   }
 
-  /* "netsim/cost.pyx":235
+  /* "netsim/cost.pyx":236
  * 
  *      # convert iwdt to continguous
  *     cdef double[:,::1] dt = np.ascontiguousarray(dt_tmp)             # <<<<<<<<<<<<<<
  * 
  *     # initialize backlinks
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 235, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 236, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_ascontiguousarray); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 235, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_ascontiguousarray); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 236, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = __pyx_memoryview_fromslice(__pyx_v_dt_tmp, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 235, __pyx_L1_error)
+  __pyx_t_2 = __pyx_memoryview_fromslice(__pyx_v_dt_tmp, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 236, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_4 = NULL;
   if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_3))) {
@@ -5660,37 +5660,37 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
   __pyx_t_1 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_4, __pyx_t_2) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2);
   __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 235, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 236, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_5 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_double(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_5.memview)) __PYX_ERR(0, 235, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_double(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_5.memview)) __PYX_ERR(0, 236, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_dt = __pyx_t_5;
   __pyx_t_5.memview = NULL;
   __pyx_t_5.data = NULL;
 
-  /* "netsim/cost.pyx":239
+  /* "netsim/cost.pyx":240
  *     # initialize backlinks
  *     cdef:
  *         int[:,::1] blx = np.ascontiguousarray(np.zeros((dt.shape[0],dt.shape[1]), np.intc))             # <<<<<<<<<<<<<<
  *         int[:,::1] bly = np.ascontiguousarray(np.zeros((dt.shape[0],dt.shape[1]), np.intc))
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 239, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 240, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_ascontiguousarray); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 239, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_ascontiguousarray); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 240, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 239, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 240, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_zeros); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 239, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_zeros); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 240, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyInt_FromSsize_t((__pyx_v_dt.shape[0])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 239, __pyx_L1_error)
+  __pyx_t_4 = PyInt_FromSsize_t((__pyx_v_dt.shape[0])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 240, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_7 = PyInt_FromSsize_t((__pyx_v_dt.shape[1])); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 239, __pyx_L1_error)
+  __pyx_t_7 = PyInt_FromSsize_t((__pyx_v_dt.shape[1])); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 240, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 239, __pyx_L1_error)
+  __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 240, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_GIVEREF(__pyx_t_4);
   PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_4);
@@ -5698,9 +5698,9 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
   PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_7);
   __pyx_t_4 = 0;
   __pyx_t_7 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 239, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 240, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_intc); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 239, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_intc); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 240, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __pyx_t_7 = NULL;
@@ -5718,7 +5718,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_6)) {
     PyObject *__pyx_temp[3] = {__pyx_t_7, __pyx_t_8, __pyx_t_4};
-    __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_9, 2+__pyx_t_9); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 239, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_9, 2+__pyx_t_9); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 240, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -5728,7 +5728,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_6)) {
     PyObject *__pyx_temp[3] = {__pyx_t_7, __pyx_t_8, __pyx_t_4};
-    __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_9, 2+__pyx_t_9); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 239, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_6, __pyx_temp+1-__pyx_t_9, 2+__pyx_t_9); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 240, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -5736,7 +5736,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
   } else
   #endif
   {
-    __pyx_t_10 = PyTuple_New(2+__pyx_t_9); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 239, __pyx_L1_error)
+    __pyx_t_10 = PyTuple_New(2+__pyx_t_9); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 240, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     if (__pyx_t_7) {
       __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_7); __pyx_t_7 = NULL;
@@ -5747,7 +5747,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
     PyTuple_SET_ITEM(__pyx_t_10, 1+__pyx_t_9, __pyx_t_4);
     __pyx_t_8 = 0;
     __pyx_t_4 = 0;
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_10, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 239, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_t_10, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 240, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   }
@@ -5765,37 +5765,37 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
   __pyx_t_1 = (__pyx_t_6) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_6, __pyx_t_3) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3);
   __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 239, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 240, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_11 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_int(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_11.memview)) __PYX_ERR(0, 239, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_int(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_11.memview)) __PYX_ERR(0, 240, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_blx = __pyx_t_11;
   __pyx_t_11.memview = NULL;
   __pyx_t_11.data = NULL;
 
-  /* "netsim/cost.pyx":240
+  /* "netsim/cost.pyx":241
  *     cdef:
  *         int[:,::1] blx = np.ascontiguousarray(np.zeros((dt.shape[0],dt.shape[1]), np.intc))
  *         int[:,::1] bly = np.ascontiguousarray(np.zeros((dt.shape[0],dt.shape[1]), np.intc))             # <<<<<<<<<<<<<<
  * 
  *     # calculate loop limits
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 240, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 241, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_ascontiguousarray); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 240, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_ascontiguousarray); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 241, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 240, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_np); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 241, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_zeros); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 240, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_zeros); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 241, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = PyInt_FromSsize_t((__pyx_v_dt.shape[0])); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 240, __pyx_L1_error)
+  __pyx_t_6 = PyInt_FromSsize_t((__pyx_v_dt.shape[0])); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 241, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_4 = PyInt_FromSsize_t((__pyx_v_dt.shape[1])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 240, __pyx_L1_error)
+  __pyx_t_4 = PyInt_FromSsize_t((__pyx_v_dt.shape[1])); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 241, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 240, __pyx_L1_error)
+  __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 241, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_GIVEREF(__pyx_t_6);
   PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_6);
@@ -5803,9 +5803,9 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
   PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_4);
   __pyx_t_6 = 0;
   __pyx_t_4 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 240, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 241, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_intc); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 240, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_intc); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 241, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_4 = NULL;
@@ -5823,7 +5823,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_10)) {
     PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_t_8, __pyx_t_6};
-    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_10, __pyx_temp+1-__pyx_t_9, 2+__pyx_t_9); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 240, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_10, __pyx_temp+1-__pyx_t_9, 2+__pyx_t_9); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 241, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -5833,7 +5833,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_10)) {
     PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_t_8, __pyx_t_6};
-    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_10, __pyx_temp+1-__pyx_t_9, 2+__pyx_t_9); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 240, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_10, __pyx_temp+1-__pyx_t_9, 2+__pyx_t_9); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 241, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
@@ -5841,7 +5841,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
   } else
   #endif
   {
-    __pyx_t_7 = PyTuple_New(2+__pyx_t_9); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 240, __pyx_L1_error)
+    __pyx_t_7 = PyTuple_New(2+__pyx_t_9); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 241, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     if (__pyx_t_4) {
       __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_4); __pyx_t_4 = NULL;
@@ -5852,7 +5852,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
     PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_9, __pyx_t_6);
     __pyx_t_8 = 0;
     __pyx_t_6 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 240, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_7, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 241, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   }
@@ -5870,32 +5870,32 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
   __pyx_t_1 = (__pyx_t_10) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_10, __pyx_t_2) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2);
   __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 240, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 241, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_11 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_int(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_11.memview)) __PYX_ERR(0, 240, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_int(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_11.memview)) __PYX_ERR(0, 241, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_bly = __pyx_t_11;
   __pyx_t_11.memview = NULL;
   __pyx_t_11.data = NULL;
 
-  /* "netsim/cost.pyx":244
+  /* "netsim/cost.pyx":245
  *     # calculate loop limits
  *     cdef:
  *         Py_ssize_t nsize = ch.nsize             # <<<<<<<<<<<<<<
  *         Py_ssize_t nrows = dt.shape[0] - nsize
  *         Py_ssize_t ncols = dt.shape[1] - nsize
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_ch); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 244, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_ch); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 245, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nsize); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 244, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_nsize); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 245, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_12 = __Pyx_PyIndex_AsSsize_t(__pyx_t_3); if (unlikely((__pyx_t_12 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 244, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyIndex_AsSsize_t(__pyx_t_3); if (unlikely((__pyx_t_12 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 245, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_nsize = __pyx_t_12;
 
-  /* "netsim/cost.pyx":245
+  /* "netsim/cost.pyx":246
  *     cdef:
  *         Py_ssize_t nsize = ch.nsize
  *         Py_ssize_t nrows = dt.shape[0] - nsize             # <<<<<<<<<<<<<<
@@ -5904,7 +5904,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
  */
   __pyx_v_nrows = ((__pyx_v_dt.shape[0]) - __pyx_v_nsize);
 
-  /* "netsim/cost.pyx":246
+  /* "netsim/cost.pyx":247
  *         Py_ssize_t nsize = ch.nsize
  *         Py_ssize_t nrows = dt.shape[0] - nsize
  *         Py_ssize_t ncols = dt.shape[1] - nsize             # <<<<<<<<<<<<<<
@@ -5913,40 +5913,40 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
  */
   __pyx_v_ncols = ((__pyx_v_dt.shape[1]) - __pyx_v_nsize);
 
-  /* "netsim/cost.pyx":255
+  /* "netsim/cost.pyx":256
  *         Py_ssize_t nr, nc
  *         Py_ssize_t n
  *         Py_ssize_t ncoef = ch.ncoef             # <<<<<<<<<<<<<<
  *         double[:,::1] ldm = ch.ldm.astype(np.float64)
  *         int[:,::1] dx = ch.dx
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ch); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 255, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ch); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 256, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_ncoef); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 255, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_ncoef); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 256, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_12 = __Pyx_PyIndex_AsSsize_t(__pyx_t_1); if (unlikely((__pyx_t_12 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 255, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyIndex_AsSsize_t(__pyx_t_1); if (unlikely((__pyx_t_12 == (Py_ssize_t)-1) && PyErr_Occurred())) __PYX_ERR(0, 256, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_ncoef = __pyx_t_12;
 
-  /* "netsim/cost.pyx":256
+  /* "netsim/cost.pyx":257
  *         Py_ssize_t n
  *         Py_ssize_t ncoef = ch.ncoef
  *         double[:,::1] ldm = ch.ldm.astype(np.float64)             # <<<<<<<<<<<<<<
  *         int[:,::1] dx = ch.dx
  *         int[:,::1] dy = ch.dy
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ch); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 256, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ch); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_ldm); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 256, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_ldm); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_astype); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 256, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_astype); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 256, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_float64); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 256, __pyx_L1_error)
+  __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_float64); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -5962,52 +5962,52 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
   __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_3, __pyx_t_2, __pyx_t_10) : __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_10);
   __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 256, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_5 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_double(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_5.memview)) __PYX_ERR(0, 256, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_double(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_5.memview)) __PYX_ERR(0, 257, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_ldm = __pyx_t_5;
   __pyx_t_5.memview = NULL;
   __pyx_t_5.data = NULL;
 
-  /* "netsim/cost.pyx":257
+  /* "netsim/cost.pyx":258
  *         Py_ssize_t ncoef = ch.ncoef
  *         double[:,::1] ldm = ch.ldm.astype(np.float64)
  *         int[:,::1] dx = ch.dx             # <<<<<<<<<<<<<<
  *         int[:,::1] dy = ch.dy
  *         double d0, d1
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_ch); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 257, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_ch); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 258, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_dx); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 257, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_dx); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 258, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_11 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_int(__pyx_t_3, PyBUF_WRITABLE); if (unlikely(!__pyx_t_11.memview)) __PYX_ERR(0, 257, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_int(__pyx_t_3, PyBUF_WRITABLE); if (unlikely(!__pyx_t_11.memview)) __PYX_ERR(0, 258, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_v_dx = __pyx_t_11;
   __pyx_t_11.memview = NULL;
   __pyx_t_11.data = NULL;
 
-  /* "netsim/cost.pyx":258
+  /* "netsim/cost.pyx":259
  *         double[:,::1] ldm = ch.ldm.astype(np.float64)
  *         int[:,::1] dx = ch.dx
  *         int[:,::1] dy = ch.dy             # <<<<<<<<<<<<<<
  *         double d0, d1
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ch); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_ch); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 259, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_dy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_dy); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 259, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_11 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_int(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_11.memview)) __PYX_ERR(0, 258, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_int(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_11.memview)) __PYX_ERR(0, 259, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_dy = __pyx_t_11;
   __pyx_t_11.memview = NULL;
   __pyx_t_11.data = NULL;
 
-  /* "netsim/cost.pyx":262
+  /* "netsim/cost.pyx":263
  * 
  *     # forward
  *     scan_dir= 0             # <<<<<<<<<<<<<<
@@ -6016,7 +6016,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
  */
   __pyx_v_scan_dir = 0;
 
-  /* "netsim/cost.pyx":264
+  /* "netsim/cost.pyx":265
  *     scan_dir= 0
  * 
  *     for r in range(nsize, nrows):             # <<<<<<<<<<<<<<
@@ -6028,7 +6028,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
   for (__pyx_t_14 = __pyx_v_nsize; __pyx_t_14 < __pyx_t_13; __pyx_t_14+=1) {
     __pyx_v_r = __pyx_t_14;
 
-    /* "netsim/cost.pyx":265
+    /* "netsim/cost.pyx":266
  * 
  *     for r in range(nsize, nrows):
  *         for c in range(nsize, ncols):             # <<<<<<<<<<<<<<
@@ -6040,7 +6040,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
     for (__pyx_t_17 = __pyx_v_nsize; __pyx_t_17 < __pyx_t_16; __pyx_t_17+=1) {
       __pyx_v_c = __pyx_t_17;
 
-      /* "netsim/cost.pyx":268
+      /* "netsim/cost.pyx":269
  * 
  *                 # initialize to current distance @ source
  *                 d0 = dt[r, c]             # <<<<<<<<<<<<<<
@@ -6060,11 +6060,11 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
       } else if (unlikely(__pyx_t_19 >= __pyx_v_dt.shape[1])) __pyx_t_9 = 1;
       if (unlikely(__pyx_t_9 != -1)) {
         __Pyx_RaiseBufferIndexError(__pyx_t_9);
-        __PYX_ERR(0, 268, __pyx_L1_error)
+        __PYX_ERR(0, 269, __pyx_L1_error)
       }
       __pyx_v_d0 = (*((double *) ( /* dim=1 */ ((char *) (((double *) ( /* dim=0 */ (__pyx_v_dt.data + __pyx_t_18 * __pyx_v_dt.strides[0]) )) + __pyx_t_19)) )));
 
-      /* "netsim/cost.pyx":270
+      /* "netsim/cost.pyx":271
  *                 d0 = dt[r, c]
  * 
  *                 for n in range(ncoef):             # <<<<<<<<<<<<<<
@@ -6076,7 +6076,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
       for (__pyx_t_22 = 0; __pyx_t_22 < __pyx_t_21; __pyx_t_22+=1) {
         __pyx_v_n = __pyx_t_22;
 
-        /* "netsim/cost.pyx":273
+        /* "netsim/cost.pyx":274
  * 
  *                     # generate neighbor
  *                     nr = r + dx[scan_dir, n]             # <<<<<<<<<<<<<<
@@ -6096,11 +6096,11 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
         } else if (unlikely(__pyx_t_24 >= __pyx_v_dx.shape[1])) __pyx_t_9 = 1;
         if (unlikely(__pyx_t_9 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_9);
-          __PYX_ERR(0, 273, __pyx_L1_error)
+          __PYX_ERR(0, 274, __pyx_L1_error)
         }
         __pyx_v_nr = (__pyx_v_r + (*((int *) ( /* dim=1 */ ((char *) (((int *) ( /* dim=0 */ (__pyx_v_dx.data + __pyx_t_23 * __pyx_v_dx.strides[0]) )) + __pyx_t_24)) ))));
 
-        /* "netsim/cost.pyx":274
+        /* "netsim/cost.pyx":275
  *                     # generate neighbor
  *                     nr = r + dx[scan_dir, n]
  *                     nc = c + dy[scan_dir, n]             # <<<<<<<<<<<<<<
@@ -6120,11 +6120,11 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
         } else if (unlikely(__pyx_t_26 >= __pyx_v_dy.shape[1])) __pyx_t_9 = 1;
         if (unlikely(__pyx_t_9 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_9);
-          __PYX_ERR(0, 274, __pyx_L1_error)
+          __PYX_ERR(0, 275, __pyx_L1_error)
         }
         __pyx_v_nc = (__pyx_v_c + (*((int *) ( /* dim=1 */ ((char *) (((int *) ( /* dim=0 */ (__pyx_v_dy.data + __pyx_t_25 * __pyx_v_dy.strides[0]) )) + __pyx_t_26)) ))));
 
-        /* "netsim/cost.pyx":277
+        /* "netsim/cost.pyx":278
  * 
  *                     # new accumulated distance to neighbor
  *                     d1 = dt[nr,nc] + ldm[scan_dir, n]*cellsize             # <<<<<<<<<<<<<<
@@ -6144,7 +6144,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
         } else if (unlikely(__pyx_t_28 >= __pyx_v_dt.shape[1])) __pyx_t_9 = 1;
         if (unlikely(__pyx_t_9 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_9);
-          __PYX_ERR(0, 277, __pyx_L1_error)
+          __PYX_ERR(0, 278, __pyx_L1_error)
         }
         __pyx_t_29 = __pyx_v_scan_dir;
         __pyx_t_30 = __pyx_v_n;
@@ -6159,11 +6159,11 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
         } else if (unlikely(__pyx_t_30 >= __pyx_v_ldm.shape[1])) __pyx_t_9 = 1;
         if (unlikely(__pyx_t_9 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_9);
-          __PYX_ERR(0, 277, __pyx_L1_error)
+          __PYX_ERR(0, 278, __pyx_L1_error)
         }
         __pyx_v_d1 = ((*((double *) ( /* dim=1 */ ((char *) (((double *) ( /* dim=0 */ (__pyx_v_dt.data + __pyx_t_27 * __pyx_v_dt.strides[0]) )) + __pyx_t_28)) ))) + ((*((double *) ( /* dim=1 */ ((char *) (((double *) ( /* dim=0 */ (__pyx_v_ldm.data + __pyx_t_29 * __pyx_v_ldm.strides[0]) )) + __pyx_t_30)) ))) * __pyx_v_cellsize));
 
-        /* "netsim/cost.pyx":280
+        /* "netsim/cost.pyx":281
  * 
  *                     # update w new distance?
  *                     if d1 < d0:             # <<<<<<<<<<<<<<
@@ -6173,7 +6173,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
         __pyx_t_31 = ((__pyx_v_d1 < __pyx_v_d0) != 0);
         if (__pyx_t_31) {
 
-          /* "netsim/cost.pyx":281
+          /* "netsim/cost.pyx":282
  *                     # update w new distance?
  *                     if d1 < d0:
  *                         d0 =  d1             # <<<<<<<<<<<<<<
@@ -6182,7 +6182,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
  */
           __pyx_v_d0 = __pyx_v_d1;
 
-          /* "netsim/cost.pyx":282
+          /* "netsim/cost.pyx":283
  *                     if d1 < d0:
  *                         d0 =  d1
  *                         blx[r, c] = dx[scan_dir, n]             # <<<<<<<<<<<<<<
@@ -6202,7 +6202,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
           } else if (unlikely(__pyx_t_33 >= __pyx_v_dx.shape[1])) __pyx_t_9 = 1;
           if (unlikely(__pyx_t_9 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 282, __pyx_L1_error)
+            __PYX_ERR(0, 283, __pyx_L1_error)
           }
           __pyx_t_34 = __pyx_v_r;
           __pyx_t_35 = __pyx_v_c;
@@ -6217,11 +6217,11 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
           } else if (unlikely(__pyx_t_35 >= __pyx_v_blx.shape[1])) __pyx_t_9 = 1;
           if (unlikely(__pyx_t_9 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 282, __pyx_L1_error)
+            __PYX_ERR(0, 283, __pyx_L1_error)
           }
           *((int *) ( /* dim=1 */ ((char *) (((int *) ( /* dim=0 */ (__pyx_v_blx.data + __pyx_t_34 * __pyx_v_blx.strides[0]) )) + __pyx_t_35)) )) = (*((int *) ( /* dim=1 */ ((char *) (((int *) ( /* dim=0 */ (__pyx_v_dx.data + __pyx_t_32 * __pyx_v_dx.strides[0]) )) + __pyx_t_33)) )));
 
-          /* "netsim/cost.pyx":283
+          /* "netsim/cost.pyx":284
  *                         d0 =  d1
  *                         blx[r, c] = dx[scan_dir, n]
  *                         bly[r, c] = dy[scan_dir, n]             # <<<<<<<<<<<<<<
@@ -6241,7 +6241,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
           } else if (unlikely(__pyx_t_37 >= __pyx_v_dy.shape[1])) __pyx_t_9 = 1;
           if (unlikely(__pyx_t_9 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 283, __pyx_L1_error)
+            __PYX_ERR(0, 284, __pyx_L1_error)
           }
           __pyx_t_38 = __pyx_v_r;
           __pyx_t_39 = __pyx_v_c;
@@ -6256,11 +6256,11 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
           } else if (unlikely(__pyx_t_39 >= __pyx_v_bly.shape[1])) __pyx_t_9 = 1;
           if (unlikely(__pyx_t_9 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 283, __pyx_L1_error)
+            __PYX_ERR(0, 284, __pyx_L1_error)
           }
           *((int *) ( /* dim=1 */ ((char *) (((int *) ( /* dim=0 */ (__pyx_v_bly.data + __pyx_t_38 * __pyx_v_bly.strides[0]) )) + __pyx_t_39)) )) = (*((int *) ( /* dim=1 */ ((char *) (((int *) ( /* dim=0 */ (__pyx_v_dy.data + __pyx_t_36 * __pyx_v_dy.strides[0]) )) + __pyx_t_37)) )));
 
-          /* "netsim/cost.pyx":280
+          /* "netsim/cost.pyx":281
  * 
  *                     # update w new distance?
  *                     if d1 < d0:             # <<<<<<<<<<<<<<
@@ -6270,7 +6270,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
         }
       }
 
-      /* "netsim/cost.pyx":286
+      /* "netsim/cost.pyx":287
  * 
  *                 # update with new distance
  *                 dt[r,c] = d0             # <<<<<<<<<<<<<<
@@ -6290,13 +6290,13 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
       } else if (unlikely(__pyx_t_41 >= __pyx_v_dt.shape[1])) __pyx_t_9 = 1;
       if (unlikely(__pyx_t_9 != -1)) {
         __Pyx_RaiseBufferIndexError(__pyx_t_9);
-        __PYX_ERR(0, 286, __pyx_L1_error)
+        __PYX_ERR(0, 287, __pyx_L1_error)
       }
       *((double *) ( /* dim=1 */ ((char *) (((double *) ( /* dim=0 */ (__pyx_v_dt.data + __pyx_t_40 * __pyx_v_dt.strides[0]) )) + __pyx_t_41)) )) = __pyx_v_d0;
     }
   }
 
-  /* "netsim/cost.pyx":289
+  /* "netsim/cost.pyx":290
  * 
  *     # backward
  *     scan_dir= 1             # <<<<<<<<<<<<<<
@@ -6305,7 +6305,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
  */
   __pyx_v_scan_dir = 1;
 
-  /* "netsim/cost.pyx":291
+  /* "netsim/cost.pyx":292
  *     scan_dir= 1
  * 
  *     for r in range(nrows-1, nsize-1, -1):             # <<<<<<<<<<<<<<
@@ -6317,7 +6317,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
   for (__pyx_t_14 = (__pyx_v_nrows - 1); __pyx_t_14 > __pyx_t_13; __pyx_t_14-=1) {
     __pyx_v_r = __pyx_t_14;
 
-    /* "netsim/cost.pyx":292
+    /* "netsim/cost.pyx":293
  * 
  *     for r in range(nrows-1, nsize-1, -1):
  *         for c in range(ncols-1, nsize-1, -1):             # <<<<<<<<<<<<<<
@@ -6329,7 +6329,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
     for (__pyx_t_17 = (__pyx_v_ncols - 1); __pyx_t_17 > __pyx_t_16; __pyx_t_17-=1) {
       __pyx_v_c = __pyx_t_17;
 
-      /* "netsim/cost.pyx":295
+      /* "netsim/cost.pyx":296
  * 
  *                 # initialize to current distance @ source
  *                 d0 = dt[r, c]             # <<<<<<<<<<<<<<
@@ -6349,11 +6349,11 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
       } else if (unlikely(__pyx_t_43 >= __pyx_v_dt.shape[1])) __pyx_t_9 = 1;
       if (unlikely(__pyx_t_9 != -1)) {
         __Pyx_RaiseBufferIndexError(__pyx_t_9);
-        __PYX_ERR(0, 295, __pyx_L1_error)
+        __PYX_ERR(0, 296, __pyx_L1_error)
       }
       __pyx_v_d0 = (*((double *) ( /* dim=1 */ ((char *) (((double *) ( /* dim=0 */ (__pyx_v_dt.data + __pyx_t_42 * __pyx_v_dt.strides[0]) )) + __pyx_t_43)) )));
 
-      /* "netsim/cost.pyx":297
+      /* "netsim/cost.pyx":298
  *                 d0 = dt[r, c]
  * 
  *                 for n in range(ncoef):             # <<<<<<<<<<<<<<
@@ -6365,7 +6365,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
       for (__pyx_t_22 = 0; __pyx_t_22 < __pyx_t_21; __pyx_t_22+=1) {
         __pyx_v_n = __pyx_t_22;
 
-        /* "netsim/cost.pyx":300
+        /* "netsim/cost.pyx":301
  * 
  *                     # generate neighbor
  *                     nr = r + dx[scan_dir, n]             # <<<<<<<<<<<<<<
@@ -6385,11 +6385,11 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
         } else if (unlikely(__pyx_t_45 >= __pyx_v_dx.shape[1])) __pyx_t_9 = 1;
         if (unlikely(__pyx_t_9 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_9);
-          __PYX_ERR(0, 300, __pyx_L1_error)
+          __PYX_ERR(0, 301, __pyx_L1_error)
         }
         __pyx_v_nr = (__pyx_v_r + (*((int *) ( /* dim=1 */ ((char *) (((int *) ( /* dim=0 */ (__pyx_v_dx.data + __pyx_t_44 * __pyx_v_dx.strides[0]) )) + __pyx_t_45)) ))));
 
-        /* "netsim/cost.pyx":301
+        /* "netsim/cost.pyx":302
  *                     # generate neighbor
  *                     nr = r + dx[scan_dir, n]
  *                     nc = c + dy[scan_dir, n]             # <<<<<<<<<<<<<<
@@ -6409,11 +6409,11 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
         } else if (unlikely(__pyx_t_47 >= __pyx_v_dy.shape[1])) __pyx_t_9 = 1;
         if (unlikely(__pyx_t_9 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_9);
-          __PYX_ERR(0, 301, __pyx_L1_error)
+          __PYX_ERR(0, 302, __pyx_L1_error)
         }
         __pyx_v_nc = (__pyx_v_c + (*((int *) ( /* dim=1 */ ((char *) (((int *) ( /* dim=0 */ (__pyx_v_dy.data + __pyx_t_46 * __pyx_v_dy.strides[0]) )) + __pyx_t_47)) ))));
 
-        /* "netsim/cost.pyx":304
+        /* "netsim/cost.pyx":305
  * 
  *                     # new accumulated distance to neighbor
  *                     d1 = dt[nr,nc] + ldm[scan_dir, n]*cellsize             # <<<<<<<<<<<<<<
@@ -6433,7 +6433,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
         } else if (unlikely(__pyx_t_49 >= __pyx_v_dt.shape[1])) __pyx_t_9 = 1;
         if (unlikely(__pyx_t_9 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_9);
-          __PYX_ERR(0, 304, __pyx_L1_error)
+          __PYX_ERR(0, 305, __pyx_L1_error)
         }
         __pyx_t_50 = __pyx_v_scan_dir;
         __pyx_t_51 = __pyx_v_n;
@@ -6448,11 +6448,11 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
         } else if (unlikely(__pyx_t_51 >= __pyx_v_ldm.shape[1])) __pyx_t_9 = 1;
         if (unlikely(__pyx_t_9 != -1)) {
           __Pyx_RaiseBufferIndexError(__pyx_t_9);
-          __PYX_ERR(0, 304, __pyx_L1_error)
+          __PYX_ERR(0, 305, __pyx_L1_error)
         }
         __pyx_v_d1 = ((*((double *) ( /* dim=1 */ ((char *) (((double *) ( /* dim=0 */ (__pyx_v_dt.data + __pyx_t_48 * __pyx_v_dt.strides[0]) )) + __pyx_t_49)) ))) + ((*((double *) ( /* dim=1 */ ((char *) (((double *) ( /* dim=0 */ (__pyx_v_ldm.data + __pyx_t_50 * __pyx_v_ldm.strides[0]) )) + __pyx_t_51)) ))) * __pyx_v_cellsize));
 
-        /* "netsim/cost.pyx":307
+        /* "netsim/cost.pyx":308
  * 
  *                     # update w new distance?
  *                     if d1 < d0:             # <<<<<<<<<<<<<<
@@ -6462,7 +6462,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
         __pyx_t_31 = ((__pyx_v_d1 < __pyx_v_d0) != 0);
         if (__pyx_t_31) {
 
-          /* "netsim/cost.pyx":308
+          /* "netsim/cost.pyx":309
  *                     # update w new distance?
  *                     if d1 < d0:
  *                         d0 =  d1             # <<<<<<<<<<<<<<
@@ -6471,7 +6471,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
  */
           __pyx_v_d0 = __pyx_v_d1;
 
-          /* "netsim/cost.pyx":309
+          /* "netsim/cost.pyx":310
  *                     if d1 < d0:
  *                         d0 =  d1
  *                         blx[r, c] = dx[scan_dir, n]             # <<<<<<<<<<<<<<
@@ -6491,7 +6491,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
           } else if (unlikely(__pyx_t_53 >= __pyx_v_dx.shape[1])) __pyx_t_9 = 1;
           if (unlikely(__pyx_t_9 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 309, __pyx_L1_error)
+            __PYX_ERR(0, 310, __pyx_L1_error)
           }
           __pyx_t_54 = __pyx_v_r;
           __pyx_t_55 = __pyx_v_c;
@@ -6506,11 +6506,11 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
           } else if (unlikely(__pyx_t_55 >= __pyx_v_blx.shape[1])) __pyx_t_9 = 1;
           if (unlikely(__pyx_t_9 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 309, __pyx_L1_error)
+            __PYX_ERR(0, 310, __pyx_L1_error)
           }
           *((int *) ( /* dim=1 */ ((char *) (((int *) ( /* dim=0 */ (__pyx_v_blx.data + __pyx_t_54 * __pyx_v_blx.strides[0]) )) + __pyx_t_55)) )) = (*((int *) ( /* dim=1 */ ((char *) (((int *) ( /* dim=0 */ (__pyx_v_dx.data + __pyx_t_52 * __pyx_v_dx.strides[0]) )) + __pyx_t_53)) )));
 
-          /* "netsim/cost.pyx":310
+          /* "netsim/cost.pyx":311
  *                         d0 =  d1
  *                         blx[r, c] = dx[scan_dir, n]
  *                         bly[r, c] = dy[scan_dir, n]             # <<<<<<<<<<<<<<
@@ -6530,7 +6530,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
           } else if (unlikely(__pyx_t_57 >= __pyx_v_dy.shape[1])) __pyx_t_9 = 1;
           if (unlikely(__pyx_t_9 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 310, __pyx_L1_error)
+            __PYX_ERR(0, 311, __pyx_L1_error)
           }
           __pyx_t_58 = __pyx_v_r;
           __pyx_t_59 = __pyx_v_c;
@@ -6545,11 +6545,11 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
           } else if (unlikely(__pyx_t_59 >= __pyx_v_bly.shape[1])) __pyx_t_9 = 1;
           if (unlikely(__pyx_t_9 != -1)) {
             __Pyx_RaiseBufferIndexError(__pyx_t_9);
-            __PYX_ERR(0, 310, __pyx_L1_error)
+            __PYX_ERR(0, 311, __pyx_L1_error)
           }
           *((int *) ( /* dim=1 */ ((char *) (((int *) ( /* dim=0 */ (__pyx_v_bly.data + __pyx_t_58 * __pyx_v_bly.strides[0]) )) + __pyx_t_59)) )) = (*((int *) ( /* dim=1 */ ((char *) (((int *) ( /* dim=0 */ (__pyx_v_dy.data + __pyx_t_56 * __pyx_v_dy.strides[0]) )) + __pyx_t_57)) )));
 
-          /* "netsim/cost.pyx":307
+          /* "netsim/cost.pyx":308
  * 
  *                     # update w new distance?
  *                     if d1 < d0:             # <<<<<<<<<<<<<<
@@ -6559,7 +6559,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
         }
       }
 
-      /* "netsim/cost.pyx":313
+      /* "netsim/cost.pyx":314
  * 
  *                 # update with new distance
  *                 dt[r,c] = d0             # <<<<<<<<<<<<<<
@@ -6579,22 +6579,22 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
       } else if (unlikely(__pyx_t_61 >= __pyx_v_dt.shape[1])) __pyx_t_9 = 1;
       if (unlikely(__pyx_t_9 != -1)) {
         __Pyx_RaiseBufferIndexError(__pyx_t_9);
-        __PYX_ERR(0, 313, __pyx_L1_error)
+        __PYX_ERR(0, 314, __pyx_L1_error)
       }
       *((double *) ( /* dim=1 */ ((char *) (((double *) ( /* dim=0 */ (__pyx_v_dt.data + __pyx_t_60 * __pyx_v_dt.strides[0]) )) + __pyx_t_61)) )) = __pyx_v_d0;
     }
   }
 
-  /* "netsim/cost.pyx":320
+  /* "netsim/cost.pyx":321
  * 
  *     # add padding to edges
  *     dt =  np.pad( dt[nsize:nrows, nsize:ncols], pad_width=((nsize, nsize), (nsize,nsize)), mode='mean')             # <<<<<<<<<<<<<<
  *     blx = np.pad(blx[nsize:nrows, nsize:ncols], pad_width=((nsize, nsize), (nsize,nsize)), mode='edge')
  *     bly = np.pad(bly[nsize:nrows, nsize:ncols], pad_width=((nsize, nsize), (nsize,nsize)), mode='edge')
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 320, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 321, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_pad); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 320, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_pad); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 321, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_5.data = __pyx_v_dt.data;
@@ -6615,7 +6615,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
     0,
     1) < 0))
 {
-    __PYX_ERR(0, 320, __pyx_L1_error)
+    __PYX_ERR(0, 321, __pyx_L1_error)
 }
 
 if (unlikely(__pyx_memoryview_slice_memviewslice(
@@ -6632,26 +6632,26 @@ if (unlikely(__pyx_memoryview_slice_memviewslice(
     0,
     1) < 0))
 {
-    __PYX_ERR(0, 320, __pyx_L1_error)
+    __PYX_ERR(0, 321, __pyx_L1_error)
 }
 
-__pyx_t_1 = __pyx_memoryview_fromslice(__pyx_t_5, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 320, __pyx_L1_error)
+__pyx_t_1 = __pyx_memoryview_fromslice(__pyx_t_5, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 321, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __PYX_XDEC_MEMVIEW(&__pyx_t_5, 1);
   __pyx_t_5.memview = NULL;
   __pyx_t_5.data = NULL;
-  __pyx_t_10 = PyTuple_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 320, __pyx_L1_error)
+  __pyx_t_10 = PyTuple_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 321, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_1);
   __pyx_t_1 = 0;
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 320, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 321, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyInt_FromSsize_t(__pyx_v_nsize); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 320, __pyx_L1_error)
+  __pyx_t_2 = PyInt_FromSsize_t(__pyx_v_nsize); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 321, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_nsize); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 320, __pyx_L1_error)
+  __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_nsize); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 321, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 320, __pyx_L1_error)
+  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 321, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_2);
@@ -6659,11 +6659,11 @@ __pyx_t_1 = __pyx_memoryview_fromslice(__pyx_t_5, 2, (PyObject *(*)(char *)) __p
   PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_7);
   __pyx_t_2 = 0;
   __pyx_t_7 = 0;
-  __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_nsize); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 320, __pyx_L1_error)
+  __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_nsize); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 321, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_2 = PyInt_FromSsize_t(__pyx_v_nsize); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 320, __pyx_L1_error)
+  __pyx_t_2 = PyInt_FromSsize_t(__pyx_v_nsize); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 321, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 320, __pyx_L1_error)
+  __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 321, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_GIVEREF(__pyx_t_7);
   PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_7);
@@ -6671,7 +6671,7 @@ __pyx_t_1 = __pyx_memoryview_fromslice(__pyx_t_5, 2, (PyObject *(*)(char *)) __p
   PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_2);
   __pyx_t_7 = 0;
   __pyx_t_2 = 0;
-  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 320, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 321, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_6);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_6);
@@ -6679,31 +6679,31 @@ __pyx_t_1 = __pyx_memoryview_fromslice(__pyx_t_5, 2, (PyObject *(*)(char *)) __p
   PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_8);
   __pyx_t_6 = 0;
   __pyx_t_8 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_pad_width, __pyx_t_2) < 0) __PYX_ERR(0, 320, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_pad_width, __pyx_t_2) < 0) __PYX_ERR(0, 321, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_mode, __pyx_n_s_mean) < 0) __PYX_ERR(0, 320, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_10, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 320, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_mode, __pyx_n_s_mean) < 0) __PYX_ERR(0, 321, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_10, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 321, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_5 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_double(__pyx_t_2, PyBUF_WRITABLE); if (unlikely(!__pyx_t_5.memview)) __PYX_ERR(0, 320, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_double(__pyx_t_2, PyBUF_WRITABLE); if (unlikely(!__pyx_t_5.memview)) __PYX_ERR(0, 321, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __PYX_XDEC_MEMVIEW(&__pyx_v_dt, 1);
   __pyx_v_dt = __pyx_t_5;
   __pyx_t_5.memview = NULL;
   __pyx_t_5.data = NULL;
 
-  /* "netsim/cost.pyx":321
+  /* "netsim/cost.pyx":322
  *     # add padding to edges
  *     dt =  np.pad( dt[nsize:nrows, nsize:ncols], pad_width=((nsize, nsize), (nsize,nsize)), mode='mean')
  *     blx = np.pad(blx[nsize:nrows, nsize:ncols], pad_width=((nsize, nsize), (nsize,nsize)), mode='edge')             # <<<<<<<<<<<<<<
  *     bly = np.pad(bly[nsize:nrows, nsize:ncols], pad_width=((nsize, nsize), (nsize,nsize)), mode='edge')
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 321, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 322, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_pad); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 321, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_pad); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 322, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_11.data = __pyx_v_blx.data;
@@ -6724,7 +6724,7 @@ __pyx_t_1 = __pyx_memoryview_fromslice(__pyx_t_5, 2, (PyObject *(*)(char *)) __p
     0,
     1) < 0))
 {
-    __PYX_ERR(0, 321, __pyx_L1_error)
+    __PYX_ERR(0, 322, __pyx_L1_error)
 }
 
 if (unlikely(__pyx_memoryview_slice_memviewslice(
@@ -6741,26 +6741,26 @@ if (unlikely(__pyx_memoryview_slice_memviewslice(
     0,
     1) < 0))
 {
-    __PYX_ERR(0, 321, __pyx_L1_error)
+    __PYX_ERR(0, 322, __pyx_L1_error)
 }
 
-__pyx_t_2 = __pyx_memoryview_fromslice(__pyx_t_11, 2, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 321, __pyx_L1_error)
+__pyx_t_2 = __pyx_memoryview_fromslice(__pyx_t_11, 2, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 322, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __PYX_XDEC_MEMVIEW(&__pyx_t_11, 1);
   __pyx_t_11.memview = NULL;
   __pyx_t_11.data = NULL;
-  __pyx_t_10 = PyTuple_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 321, __pyx_L1_error)
+  __pyx_t_10 = PyTuple_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 322, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_GIVEREF(__pyx_t_2);
   PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_2);
   __pyx_t_2 = 0;
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 321, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 322, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyInt_FromSsize_t(__pyx_v_nsize); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 321, __pyx_L1_error)
+  __pyx_t_3 = PyInt_FromSsize_t(__pyx_v_nsize); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 322, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_8 = PyInt_FromSsize_t(__pyx_v_nsize); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 321, __pyx_L1_error)
+  __pyx_t_8 = PyInt_FromSsize_t(__pyx_v_nsize); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 322, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 321, __pyx_L1_error)
+  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 322, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_GIVEREF(__pyx_t_3);
   PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_3);
@@ -6768,11 +6768,11 @@ __pyx_t_2 = __pyx_memoryview_fromslice(__pyx_t_11, 2, (PyObject *(*)(char *)) __
   PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_8);
   __pyx_t_3 = 0;
   __pyx_t_8 = 0;
-  __pyx_t_8 = PyInt_FromSsize_t(__pyx_v_nsize); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 321, __pyx_L1_error)
+  __pyx_t_8 = PyInt_FromSsize_t(__pyx_v_nsize); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 322, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_3 = PyInt_FromSsize_t(__pyx_v_nsize); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 321, __pyx_L1_error)
+  __pyx_t_3 = PyInt_FromSsize_t(__pyx_v_nsize); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 322, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 321, __pyx_L1_error)
+  __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 322, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_GIVEREF(__pyx_t_8);
   PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_8);
@@ -6780,7 +6780,7 @@ __pyx_t_2 = __pyx_memoryview_fromslice(__pyx_t_11, 2, (PyObject *(*)(char *)) __
   PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_t_3);
   __pyx_t_8 = 0;
   __pyx_t_3 = 0;
-  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 321, __pyx_L1_error)
+  __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 322, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_6);
   PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_6);
@@ -6788,31 +6788,31 @@ __pyx_t_2 = __pyx_memoryview_fromslice(__pyx_t_11, 2, (PyObject *(*)(char *)) __
   PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_t_7);
   __pyx_t_6 = 0;
   __pyx_t_7 = 0;
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_pad_width, __pyx_t_3) < 0) __PYX_ERR(0, 321, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_pad_width, __pyx_t_3) < 0) __PYX_ERR(0, 322, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_mode, __pyx_n_s_edge) < 0) __PYX_ERR(0, 321, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_10, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 321, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_mode, __pyx_n_s_edge) < 0) __PYX_ERR(0, 322, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_10, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 322, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_11 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_int(__pyx_t_3, PyBUF_WRITABLE); if (unlikely(!__pyx_t_11.memview)) __PYX_ERR(0, 321, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_int(__pyx_t_3, PyBUF_WRITABLE); if (unlikely(!__pyx_t_11.memview)) __PYX_ERR(0, 322, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __PYX_XDEC_MEMVIEW(&__pyx_v_blx, 1);
   __pyx_v_blx = __pyx_t_11;
   __pyx_t_11.memview = NULL;
   __pyx_t_11.data = NULL;
 
-  /* "netsim/cost.pyx":322
+  /* "netsim/cost.pyx":323
  *     dt =  np.pad( dt[nsize:nrows, nsize:ncols], pad_width=((nsize, nsize), (nsize,nsize)), mode='mean')
  *     blx = np.pad(blx[nsize:nrows, nsize:ncols], pad_width=((nsize, nsize), (nsize,nsize)), mode='edge')
  *     bly = np.pad(bly[nsize:nrows, nsize:ncols], pad_width=((nsize, nsize), (nsize,nsize)), mode='edge')             # <<<<<<<<<<<<<<
  * 
  *     if option == 1:
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 322, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 323, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_pad); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 322, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_pad); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 323, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_11.data = __pyx_v_bly.data;
@@ -6833,7 +6833,7 @@ __pyx_t_2 = __pyx_memoryview_fromslice(__pyx_t_11, 2, (PyObject *(*)(char *)) __
     0,
     1) < 0))
 {
-    __PYX_ERR(0, 322, __pyx_L1_error)
+    __PYX_ERR(0, 323, __pyx_L1_error)
 }
 
 if (unlikely(__pyx_memoryview_slice_memviewslice(
@@ -6850,26 +6850,26 @@ if (unlikely(__pyx_memoryview_slice_memviewslice(
     0,
     1) < 0))
 {
-    __PYX_ERR(0, 322, __pyx_L1_error)
+    __PYX_ERR(0, 323, __pyx_L1_error)
 }
 
-__pyx_t_3 = __pyx_memoryview_fromslice(__pyx_t_11, 2, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 322, __pyx_L1_error)
+__pyx_t_3 = __pyx_memoryview_fromslice(__pyx_t_11, 2, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 323, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __PYX_XDEC_MEMVIEW(&__pyx_t_11, 1);
   __pyx_t_11.memview = NULL;
   __pyx_t_11.data = NULL;
-  __pyx_t_10 = PyTuple_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 322, __pyx_L1_error)
+  __pyx_t_10 = PyTuple_New(1); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 323, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_10);
   __Pyx_GIVEREF(__pyx_t_3);
   PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_t_3);
   __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 322, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 323, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_1 = PyInt_FromSsize_t(__pyx_v_nsize); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 322, __pyx_L1_error)
+  __pyx_t_1 = PyInt_FromSsize_t(__pyx_v_nsize); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 323, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_nsize); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 322, __pyx_L1_error)
+  __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_nsize); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 323, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 322, __pyx_L1_error)
+  __pyx_t_6 = PyTuple_New(2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 323, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_1);
@@ -6877,11 +6877,11 @@ __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_t_11, 2, (PyObject *(*)(char *)) __
   PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_7);
   __pyx_t_1 = 0;
   __pyx_t_7 = 0;
-  __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_nsize); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 322, __pyx_L1_error)
+  __pyx_t_7 = PyInt_FromSsize_t(__pyx_v_nsize); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 323, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_1 = PyInt_FromSsize_t(__pyx_v_nsize); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 322, __pyx_L1_error)
+  __pyx_t_1 = PyInt_FromSsize_t(__pyx_v_nsize); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 323, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 322, __pyx_L1_error)
+  __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 323, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_GIVEREF(__pyx_t_7);
   PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_7);
@@ -6889,7 +6889,7 @@ __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_t_11, 2, (PyObject *(*)(char *)) __
   PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_1);
   __pyx_t_7 = 0;
   __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 322, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 323, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_6);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_6);
@@ -6897,22 +6897,22 @@ __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_t_11, 2, (PyObject *(*)(char *)) __
   PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_t_8);
   __pyx_t_6 = 0;
   __pyx_t_8 = 0;
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_pad_width, __pyx_t_1) < 0) __PYX_ERR(0, 322, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_pad_width, __pyx_t_1) < 0) __PYX_ERR(0, 323, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_mode, __pyx_n_s_edge) < 0) __PYX_ERR(0, 322, __pyx_L1_error)
-  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_10, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 322, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_mode, __pyx_n_s_edge) < 0) __PYX_ERR(0, 323, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_10, __pyx_t_3); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 323, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_11 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_int(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_11.memview)) __PYX_ERR(0, 322, __pyx_L1_error)
+  __pyx_t_11 = __Pyx_PyObject_to_MemoryviewSlice_d_dc_int(__pyx_t_1, PyBUF_WRITABLE); if (unlikely(!__pyx_t_11.memview)) __PYX_ERR(0, 323, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __PYX_XDEC_MEMVIEW(&__pyx_v_bly, 1);
   __pyx_v_bly = __pyx_t_11;
   __pyx_t_11.memview = NULL;
   __pyx_t_11.data = NULL;
 
-  /* "netsim/cost.pyx":324
+  /* "netsim/cost.pyx":325
  *     bly = np.pad(bly[nsize:nrows, nsize:ncols], pad_width=((nsize, nsize), (nsize,nsize)), mode='edge')
  * 
  *     if option == 1:             # <<<<<<<<<<<<<<
@@ -6922,7 +6922,7 @@ __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_t_11, 2, (PyObject *(*)(char *)) __
   switch (__pyx_v_option) {
     case 1:
 
-    /* "netsim/cost.pyx":325
+    /* "netsim/cost.pyx":326
  * 
  *     if option == 1:
  *         return np.asarray(dt), np.asarray(blx), np.asarray(bly)             # <<<<<<<<<<<<<<
@@ -6930,12 +6930,12 @@ __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_t_11, 2, (PyObject *(*)(char *)) __
  *         return np.asarray(dt)
  */
     __Pyx_XDECREF(__pyx_r);
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 325, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 326, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_asarray); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 325, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_asarray); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 326, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_v_dt, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 325, __pyx_L1_error)
+    __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_v_dt, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 326, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_2 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_10))) {
@@ -6950,15 +6950,15 @@ __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_t_11, 2, (PyObject *(*)(char *)) __
     __pyx_t_1 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_10, __pyx_t_2, __pyx_t_3) : __Pyx_PyObject_CallOneArg(__pyx_t_10, __pyx_t_3);
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 325, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 326, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 325, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 326, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_asarray); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 325, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_asarray); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 326, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_v_blx, 2, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 325, __pyx_L1_error)
+    __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_v_blx, 2, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 326, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_8 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
@@ -6973,15 +6973,15 @@ __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_t_11, 2, (PyObject *(*)(char *)) __
     __pyx_t_10 = (__pyx_t_8) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_8, __pyx_t_3) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3);
     __Pyx_XDECREF(__pyx_t_8); __pyx_t_8 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 325, __pyx_L1_error)
+    if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 326, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 325, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 326, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_asarray); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 325, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_asarray); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 326, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_v_bly, 2, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 325, __pyx_L1_error)
+    __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_v_bly, 2, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 326, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_6 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_8))) {
@@ -6996,10 +6996,10 @@ __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_t_11, 2, (PyObject *(*)(char *)) __
     __pyx_t_2 = (__pyx_t_6) ? __Pyx_PyObject_Call2Args(__pyx_t_8, __pyx_t_6, __pyx_t_3) : __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_3);
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 325, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 326, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __pyx_t_8 = PyTuple_New(3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 325, __pyx_L1_error)
+    __pyx_t_8 = PyTuple_New(3); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 326, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_GIVEREF(__pyx_t_1);
     PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_1);
@@ -7014,7 +7014,7 @@ __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_t_11, 2, (PyObject *(*)(char *)) __
     __pyx_t_8 = 0;
     goto __pyx_L0;
 
-    /* "netsim/cost.pyx":324
+    /* "netsim/cost.pyx":325
  *     bly = np.pad(bly[nsize:nrows, nsize:ncols], pad_width=((nsize, nsize), (nsize,nsize)), mode='edge')
  * 
  *     if option == 1:             # <<<<<<<<<<<<<<
@@ -7024,7 +7024,7 @@ __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_t_11, 2, (PyObject *(*)(char *)) __
     break;
     case 2:
 
-    /* "netsim/cost.pyx":327
+    /* "netsim/cost.pyx":328
  *         return np.asarray(dt), np.asarray(blx), np.asarray(bly)
  *     elif option == 2:
  *         return np.asarray(dt)             # <<<<<<<<<<<<<<
@@ -7032,12 +7032,12 @@ __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_t_11, 2, (PyObject *(*)(char *)) __
  *         return np.asarray(blx), np.asarray(bly)
  */
     __Pyx_XDECREF(__pyx_r);
-    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 327, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 328, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_asarray); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 327, __pyx_L1_error)
+    __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_asarray); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 328, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __pyx_memoryview_fromslice(__pyx_v_dt, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 327, __pyx_L1_error)
+    __pyx_t_2 = __pyx_memoryview_fromslice(__pyx_v_dt, 2, (PyObject *(*)(char *)) __pyx_memview_get_double, (int (*)(char *, PyObject *)) __pyx_memview_set_double, 0);; if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 328, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_1 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_10))) {
@@ -7052,14 +7052,14 @@ __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_t_11, 2, (PyObject *(*)(char *)) __
     __pyx_t_8 = (__pyx_t_1) ? __Pyx_PyObject_Call2Args(__pyx_t_10, __pyx_t_1, __pyx_t_2) : __Pyx_PyObject_CallOneArg(__pyx_t_10, __pyx_t_2);
     __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 327, __pyx_L1_error)
+    if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 328, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
     __pyx_r = __pyx_t_8;
     __pyx_t_8 = 0;
     goto __pyx_L0;
 
-    /* "netsim/cost.pyx":326
+    /* "netsim/cost.pyx":327
  *     if option == 1:
  *         return np.asarray(dt), np.asarray(blx), np.asarray(bly)
  *     elif option == 2:             # <<<<<<<<<<<<<<
@@ -7069,7 +7069,7 @@ __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_t_11, 2, (PyObject *(*)(char *)) __
     break;
     default:
 
-    /* "netsim/cost.pyx":329
+    /* "netsim/cost.pyx":330
  *         return np.asarray(dt)
  *     else:
  *         return np.asarray(blx), np.asarray(bly)             # <<<<<<<<<<<<<<
@@ -7077,12 +7077,12 @@ __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_t_11, 2, (PyObject *(*)(char *)) __
  * def calculate_dt(double[:,:] dt, float cellsize, int option = 1):
  */
     __Pyx_XDECREF(__pyx_r);
-    __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 329, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 330, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_asarray); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 329, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_asarray); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 330, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __pyx_t_10 = __pyx_memoryview_fromslice(__pyx_v_blx, 2, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 329, __pyx_L1_error)
+    __pyx_t_10 = __pyx_memoryview_fromslice(__pyx_v_blx, 2, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 330, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __pyx_t_1 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_2))) {
@@ -7097,15 +7097,15 @@ __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_t_11, 2, (PyObject *(*)(char *)) __
     __pyx_t_8 = (__pyx_t_1) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_1, __pyx_t_10) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_10);
     __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 329, __pyx_L1_error)
+    if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 330, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 329, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_10, __pyx_n_s_np); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 330, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_asarray); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 329, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_10, __pyx_n_s_asarray); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 330, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __pyx_t_10 = __pyx_memoryview_fromslice(__pyx_v_bly, 2, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 329, __pyx_L1_error)
+    __pyx_t_10 = __pyx_memoryview_fromslice(__pyx_v_bly, 2, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 330, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __pyx_t_3 = NULL;
     if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_1))) {
@@ -7120,10 +7120,10 @@ __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_t_11, 2, (PyObject *(*)(char *)) __
     __pyx_t_2 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_1, __pyx_t_3, __pyx_t_10) : __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_10);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 329, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 330, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 329, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 330, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_GIVEREF(__pyx_t_8);
     PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_8);
@@ -7137,7 +7137,7 @@ __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_t_11, 2, (PyObject *(*)(char *)) __
     break;
   }
 
-  /* "netsim/cost.pyx":232
+  /* "netsim/cost.pyx":233
  * 
  * 
  * cdef cy_calculate_dt(double[:,:] dt_tmp, float cellsize, int option = 1):             # <<<<<<<<<<<<<<
@@ -7171,7 +7171,7 @@ __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_t_11, 2, (PyObject *(*)(char *)) __
   return __pyx_r;
 }
 
-/* "netsim/cost.pyx":331
+/* "netsim/cost.pyx":332
  *         return np.asarray(blx), np.asarray(bly)
  * 
  * def calculate_dt(double[:,:] dt, float cellsize, int option = 1):             # <<<<<<<<<<<<<<
@@ -7181,7 +7181,7 @@ __pyx_t_3 = __pyx_memoryview_fromslice(__pyx_t_11, 2, (PyObject *(*)(char *)) __
 
 /* Python wrapper */
 static PyObject *__pyx_pw_6netsim_4cost_3calculate_dt(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static char __pyx_doc_6netsim_4cost_2calculate_dt[] = "\n    calculates euclidean distance transform. \n    \n    Parameters\n    ----------\n\n    dt: 2D numpy array\n       array with source cells initiated to a large none-zero value\n\n    cellsize: float\n        cellsize\n    \n    option: int\n        parameter used to determine the output:\n\n            1. Returns *dt* and *backlinks*\n            2. Return *dt*\n            3. Returns *backlinks*\n        \n    Returns\n    -------\n    dt: 2D numpy array, *optional*\n        distance transform\n    \n    blx, bly: 2D numpy arrays, *optional*\n        distance transform backlinks\n    \n    Notes\n    -----\n    This is a wrapper for the cython function ``cy_calculate_dt()``\n\n    ";
+static char __pyx_doc_6netsim_4cost_2calculate_dt[] = "\n    calculates euclidean distance transform. \n    \n    Parameters\n    ----------\n\n    dt: 2D numpy array\n       array with source cells initiated to zero and remaining cells to \n       a large none-zero value (typically 999999.0)\n\n    cellsize: float\n        cellsize\n    \n    option: int\n        parameter used to determine the output:\n\n        1. Returns *dt*, *blx*, *bly* (*backlinks*)\n        2. Return *dt* only\n        3. Returns *blx*, *bly* (*backlinks*) \n        \n    Returns\n    -------\n    dt: 2D numpy array, *optional*\n        distance transform\n    \n    blx, bly: 2D numpy arrays, *optional*\n        distance transform backlinks\n    \n    Notes\n    -----\n    This is a wrapper for the cython function ``cy_calculate_dt()``\n\n    ";
 static PyMethodDef __pyx_mdef_6netsim_4cost_3calculate_dt = {"calculate_dt", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_6netsim_4cost_3calculate_dt, METH_VARARGS|METH_KEYWORDS, __pyx_doc_6netsim_4cost_2calculate_dt};
 static PyObject *__pyx_pw_6netsim_4cost_3calculate_dt(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   __Pyx_memviewslice __pyx_v_dt = { 0, 0, { 0 }, { 0 }, { 0 } };
@@ -7215,7 +7215,7 @@ static PyObject *__pyx_pw_6netsim_4cost_3calculate_dt(PyObject *__pyx_self, PyOb
         case  1:
         if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_cellsize)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("calculate_dt", 0, 2, 3, 1); __PYX_ERR(0, 331, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("calculate_dt", 0, 2, 3, 1); __PYX_ERR(0, 332, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -7225,7 +7225,7 @@ static PyObject *__pyx_pw_6netsim_4cost_3calculate_dt(PyObject *__pyx_self, PyOb
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "calculate_dt") < 0)) __PYX_ERR(0, 331, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "calculate_dt") < 0)) __PYX_ERR(0, 332, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -7237,17 +7237,17 @@ static PyObject *__pyx_pw_6netsim_4cost_3calculate_dt(PyObject *__pyx_self, PyOb
         default: goto __pyx_L5_argtuple_error;
       }
     }
-    __pyx_v_dt = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_dt.memview)) __PYX_ERR(0, 331, __pyx_L3_error)
-    __pyx_v_cellsize = __pyx_PyFloat_AsFloat(values[1]); if (unlikely((__pyx_v_cellsize == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 331, __pyx_L3_error)
+    __pyx_v_dt = __Pyx_PyObject_to_MemoryviewSlice_dsds_double(values[0], PyBUF_WRITABLE); if (unlikely(!__pyx_v_dt.memview)) __PYX_ERR(0, 332, __pyx_L3_error)
+    __pyx_v_cellsize = __pyx_PyFloat_AsFloat(values[1]); if (unlikely((__pyx_v_cellsize == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 332, __pyx_L3_error)
     if (values[2]) {
-      __pyx_v_option = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_option == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 331, __pyx_L3_error)
+      __pyx_v_option = __Pyx_PyInt_As_int(values[2]); if (unlikely((__pyx_v_option == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 332, __pyx_L3_error)
     } else {
       __pyx_v_option = ((int)1);
     }
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("calculate_dt", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 331, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("calculate_dt", 0, 2, 3, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 332, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("netsim.cost.calculate_dt", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -7267,7 +7267,7 @@ static PyObject *__pyx_pf_6netsim_4cost_2calculate_dt(CYTHON_UNUSED PyObject *__
   struct __pyx_opt_args_6netsim_4cost_cy_calculate_dt __pyx_t_2;
   __Pyx_RefNannySetupContext("calculate_dt", 0);
 
-  /* "netsim/cost.pyx":364
+  /* "netsim/cost.pyx":366
  * 
  *     '''
  *     return cy_calculate_dt(dt, cellsize, option)             # <<<<<<<<<<<<<<
@@ -7275,13 +7275,13 @@ static PyObject *__pyx_pf_6netsim_4cost_2calculate_dt(CYTHON_UNUSED PyObject *__
   __Pyx_XDECREF(__pyx_r);
   __pyx_t_2.__pyx_n = 1;
   __pyx_t_2.option = __pyx_v_option;
-  __pyx_t_1 = __pyx_f_6netsim_4cost_cy_calculate_dt(__pyx_v_dt, __pyx_v_cellsize, &__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 364, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_6netsim_4cost_cy_calculate_dt(__pyx_v_dt, __pyx_v_cellsize, &__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 366, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "netsim/cost.pyx":331
+  /* "netsim/cost.pyx":332
  *         return np.asarray(blx), np.asarray(bly)
  * 
  * def calculate_dt(double[:,:] dt, float cellsize, int option = 1):             # <<<<<<<<<<<<<<
@@ -23665,17 +23665,17 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__27);
   __pyx_codeobj__28 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__27, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_netsim_cost_pyx, __pyx_n_s_calculate_iwdt, 181, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__28)) __PYX_ERR(0, 181, __pyx_L1_error)
 
-  /* "netsim/cost.pyx":331
+  /* "netsim/cost.pyx":332
  *         return np.asarray(blx), np.asarray(bly)
  * 
  * def calculate_dt(double[:,:] dt, float cellsize, int option = 1):             # <<<<<<<<<<<<<<
  *     '''
  *     calculates euclidean distance transform.
  */
-  __pyx_tuple__29 = PyTuple_Pack(3, __pyx_n_s_dt, __pyx_n_s_cellsize, __pyx_n_s_option); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 331, __pyx_L1_error)
+  __pyx_tuple__29 = PyTuple_Pack(3, __pyx_n_s_dt, __pyx_n_s_cellsize, __pyx_n_s_option); if (unlikely(!__pyx_tuple__29)) __PYX_ERR(0, 332, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__29);
   __Pyx_GIVEREF(__pyx_tuple__29);
-  __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_netsim_cost_pyx, __pyx_n_s_calculate_dt, 331, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 331, __pyx_L1_error)
+  __pyx_codeobj__30 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__29, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_netsim_cost_pyx, __pyx_n_s_calculate_dt, 332, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__30)) __PYX_ERR(0, 332, __pyx_L1_error)
 
   /* "View.MemoryView":286
  *         return self.name
@@ -24163,16 +24163,16 @@ if (!__Pyx_RefNanny) {
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_calculate_iwdt, __pyx_t_2) < 0) __PYX_ERR(0, 181, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "netsim/cost.pyx":331
+  /* "netsim/cost.pyx":332
  *         return np.asarray(blx), np.asarray(bly)
  * 
  * def calculate_dt(double[:,:] dt, float cellsize, int option = 1):             # <<<<<<<<<<<<<<
  *     '''
  *     calculates euclidean distance transform.
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_6netsim_4cost_3calculate_dt, NULL, __pyx_n_s_netsim_cost); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 331, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_6netsim_4cost_3calculate_dt, NULL, __pyx_n_s_netsim_cost); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 332, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calculate_dt, __pyx_t_2) < 0) __PYX_ERR(0, 331, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_calculate_dt, __pyx_t_2) < 0) __PYX_ERR(0, 332, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "netsim/cost.pyx":1

@@ -1,5 +1,5 @@
 # Top level for Network Simulation package
-name = 'netsim'
-version = '0.0.1'
+__name___ = 'netsim'
+__version__ = '0.0.1'
 
 # from netsim.simulate import *
