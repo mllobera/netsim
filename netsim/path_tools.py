@@ -80,16 +80,20 @@ def create_paths(blx, bly, origin, destinations, start_path=0):
     origin: list
         row, column of origin    
     
-    destinations: list of destinations
-        list of destinations [[row, colum]]
+    destinations: list
+        list of destinations [[row, colum],...]
     
     Returns
     -------
     paths: 2D numpy array
         array that results from adding all paths
     
-    path_lst: list of dictionaries
-        a list of paths each represented by a dictionary containing destination, origin and track 
+    path_lst: list
+        a list of paths. Each path is represented by a dictionary containing three entries:
+        
+        - 'destination': [row,col] of destination
+        - 'origin': [row, col] of origin
+        - 'track' : list containing two lists: [rows], [cols] for each cell making up the path 
     
     Notes
     -----
@@ -208,8 +212,8 @@ def path_stats(df_paths, ras, df, fun_dic={'fun':np.sum, 'name':'sum'}):
     fun_dic: dictionary 
        a dictionary with two entries:
 
-       - **<function>**:  function to use on extracted data
-       - **name**: function name
+       - **'fun'**:  a numpy function to compute values along a path track
+       - **'name'**: function name
        
     Returns
     -------
