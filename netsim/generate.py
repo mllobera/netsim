@@ -13,17 +13,18 @@ from math import factorial
 
 # constants used in generate 
 
+#: maximum number of samples to be drawn from any group.
 NSAMPLES = 100
-#  maximum number of samples to be drawn from any group.
 
+#: maximum number of points below which permulations are possible
 MAX_PERMUTATION_NUM = 7
-# maximum number of points below which permulations are possible.
 
+#: minimum number of points above which samples can be drawn
 MIN_NUM_SAMPLE = 3
-# minimum number of points above which samples can be drawn (default = max_permutation, minimum = 3, maximum = max_permutation)
 
+#: maximum total number of iterations allowed in the simulation
 MAX_ITERATIONS = 5000
-# maximum total number of iterations allowed in the simulation
+
 
 
 def check(df):
@@ -165,14 +166,17 @@ def create_network_generator(df):
     df: geo/dataframe
         contains locations, group membership and parameters used in netsim
          
-    Returns
-    -------
-    
-    netgenetr: list of generators
+    Yields
+    ------
+
+    netgentor: generator
         network generator
     
+    Returns
+    -------
+      
     df_net_info: dataframe
-        contains information about each network
+        contains information about each network (see *Notes* below)
     
     total_num_iter: int
         total number of iterations
@@ -273,7 +277,7 @@ def network_layout(df, iteration, iter_num, df_net= None, twoway= False, opt= 'c
     ----------
     
     df: dataframe
-         contains list of locations, group membership used to generate network
+         contains list of locations, group membership used to generate a network
         
     iteration: tuple of tuples
         a tuple containing one or several tuples, one per group, representing a single network iteration
@@ -285,7 +289,7 @@ def network_layout(df, iteration, iter_num, df_net= None, twoway= False, opt= 'c
         contains the identifiers of the origin and destination of each path plus the iteration identifier
     
     twoway: boolean
-        if **True** two-way paths are generated for each pair of locations in network. *Default*: **False**.
+        if **True** two-way paths are generated for each pair of locations in a network. *Default*: **False**.
     
     opt: string
         type of network to generate. The options are as follows:
