@@ -100,6 +100,7 @@ def check(df):
     if 'seq' not in colnames:
         # create a seq column with default value
         c_df['seq'] = pd.Series(np.full(nrows, int(1)), index=c_df.index)
+        msg.append('seq column - created sequence with no sequence (default 1.) !')
 
     elif 'seq' in colnames:
         # check each group
