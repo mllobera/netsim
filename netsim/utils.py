@@ -156,17 +156,23 @@ def plot_map(raster, loc= None, title= None, figsize= (5,5), cmap= 'viridis', cb
     Parameters
     ----------
     
-    ras: dictionary
-        dictionary must have at least two entries: 'ras', 2D numpy array representing a raster; 'profile', profile
-        information (from *rasterio*) about the raster. Optional entries are 'bground', a 2D numpy array
-        representing a background raster and 'paths', representing a network of paths (it is assumed that 'ras'
-        represents a DEM).
+    raster: dictionary
+        dictionary must have at least two entries:
+        
+        - **'ras'**: 2D numpy array representing a raster
+        - **'profile': raster information (as derived from *rasterio*)
+        - *Optional* entries are:
+          
+          - *'bground'*: a 2D numpy array representing a background raster. Typically a hillshade.
+          - *'paths'*:  dataframe representing a network of paths as obtained from ``calculate_paths()`` 
     
-    loc: dictionary or geodataframe
-        used to identify point locations. if dictionary then it must have at leat two entries: 'df', identifying
-        geopandas framework holding point data, 'label', name of the column in 'df' used to labelling points.
+    loc: dictionary or geodataframe, optional 
+        used to identify point locations. if *dictionary* then it must have at least two entries:
+        
+        - **'df'**:  geopandas framework holding point data.
+        - **'label'**: name of the column in 'df' used to label points.
     
-    title: string
+    title: string, optional
         if not empty then title to be used when displaying ras
     
     figsize: tuple
@@ -178,7 +184,7 @@ def plot_map(raster, loc= None, title= None, figsize= (5,5), cmap= 'viridis', cb
     cbar: boolean
         if True colorbar is displayed. *Default:* False
     
-    save: string
+    save: string, optional
         if not empty then name of the output image. *Default: None*
         
         
@@ -211,35 +217,44 @@ def plot_map(raster, loc= None, title= None, figsize= (5,5), cmap= 'viridis', cb
             # background image?
             if 'bground' in raster.keys():
                 alpha = 0.5
-                im2 = ax.imshow(raster['bground'], extent= extent, origin='upper', cmap= mpl.cm.get_cmap('Greys'))
+                im0 = ax.imshow(raster['bground'], extent= extent, origin='upper', cmap= mpl.cm.get_cmap('Greys'),**kwother)
 
             # nodata?
             if np.any(img == profile['nodata']):
                 nodata_mask = img == profile['nodata']
                 img = np.ma.array(img, mask = nodata_mask)
                 cmap.set_bad('white',0.0)
-
+                
             # paths overlay?    
             if 'paths' in raster.keys():
-                cmap= mpl.cm.get_cmap('Purples')
-                cmap.set_bad('darkgray',0.1)
+                
+                # assuming img is a dem
+                cmap.set_bad('white',0.0)
                 ax.contourf(img, 6, extent=extent, origin= 'upper', cmap= cmap, alpha=0.5)
+                
+                # path_mask = no paths
                 paths_mask = raster['paths'] == 0.0
 
-                # already a mask?
+                # combine with existing mask?
                 if np.ma.is_masked(img):
                     combined_mask = nodata_mask * paths_mask
                 else:
                     combined_mask = paths_mask
                 
-                img = np.ma.array(raster['paths'], mask= combined_mask)
-            
-            # plot main raster
-            im = ax.imshow(img, origin= 'upper', cmap= cmap, extent= extent, alpha= alpha)
+                # apply mask to path 
+                img_paths = np.ma.array(raster['paths'], mask= combined_mask)
+                
+                # plot paths
+                cmap_path = mpl.cm.get_cmap('Oranges_r')
+                cmap_path.set_bad('white',0.0)
+                im1 = ax.imshow(img_paths, origin= 'upper', cmap= cmap_path, extent= extent, alpha= alpha, **kwother)
+                
+            else: # regular plot
+                im1 = ax.imshow(img, origin= 'upper', cmap= cmap, extent= extent, alpha= alpha, **kwother)
             
             # colorbar?
             if cbar:
-                fig.colorbar(im, cax= cax)
+                fig.colorbar(im1, cax= cax)
         else:
             raise Exception('raster is missing  ''"ras"'' and/or ''"profile"'' keys! ')
     else:
