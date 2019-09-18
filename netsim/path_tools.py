@@ -78,10 +78,13 @@ def create_paths(blx, bly, origin, destinations, start_path=0):
         vertical backlink
     
     origin: list
-        row, column of origin    
+        list of origins [[row, colum],...]    
     
     destinations: list
         list of destinations [[row, colum],...]
+
+    start_path: int
+        path identifier, optional
     
     Returns
     -------
