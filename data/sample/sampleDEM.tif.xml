@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<metadata xml:lang="en"><Esri><CreaDate>20171106</CreaDate><CreaTime>09523200</CreaTime><ArcGISFormat>1.0</ArcGISFormat><SyncOnce>TRUE</SyncOnce><DataProperties><lineage><Process ToolSource="c:\program files (x86)\arcgis\desktop10.5\ArcToolbox\Toolboxes\Spatial Analyst Tools.tbx\RasterCalculator" Date="20171106" Time="095232">RasterCalculator "tst_dem.tif" C:\GIS\projects\network\potential\tst_dem200.tif</Process></lineage></DataProperties></Esri></metadata>
