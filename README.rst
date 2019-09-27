@@ -97,7 +97,13 @@ This work is currently under review.  For the time being please cite this work a
 
     Llobera, M. 2019. Netsim package (Version 0.0.1). https://github.com/mllobera/netsim
 
-  
+
+License
+=======
+
+**NetSim** is an open source `BSD-license <../../../LICENSE.rst>`_ package 
+
+
 
 
 
