@@ -4,4 +4,8 @@
 **/__pycache__
 build/
 netsim.egg-info/
-data/
+docs/build/
+docs/image/
+docs/source/_autosummary
+docs/source/_static
+docs/source/_templates
