@@ -1,0 +1,3 @@
+numpy>= 1.16
+cython>=0.29.7
+networkx>=2.3
