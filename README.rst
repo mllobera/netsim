@@ -1,6 +1,6 @@
 
 
-.. |NetSim_Logo| image:: ../images/Netsim_Logo.png 
+.. |NetSim_Logo| image:: https://github.com/mllobera/netsim/raw/master/docs/images/Netsim_Logo.png
    :width: 50px                                       
    :height: 50px                    
    :alt: NetSim                     
