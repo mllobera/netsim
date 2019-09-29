@@ -2,7 +2,7 @@
 This module contains functions to calculate an (euclidean) and influence weighted distance transform 
 """
 
-# cython: boundscheck= False, wraparound= False, cdivision= True, language_level=3, binding= True, embedsignature= True
+# cython: boundscheck= False, wraparound= False, cdivision= True, language_level= 3, binding= True, embedsignature= True
 
 import numpy as np
 import netsim.chamfer as ch
@@ -194,7 +194,7 @@ def calculate_iwdt(double[:,:] iwdt, dict iwdt_dict, int option = 1):
     option: int
         parameter used to determine the output:
 
-        1. Returns *iwdt*, *blx*, *bly* (*backlinks*)
+        1. Returns *iwdt*, *blx*, *bly* (*backlinks*). *Default*
         2. Return *iwdt* only
         3. Returns *blx*, *bly* (*backlinks*) 
 
@@ -346,7 +346,7 @@ def calculate_dt(double[:,:] dt, float cellsize, int option = 1):
     option: int
         parameter used to determine the output:
 
-        1. Returns *dt*, *blx*, *bly* (*backlinks*)
+        1. Returns *dt*, *blx*, *bly* (*backlinks*). *Default*
         2. Return *dt* only
         3. Returns *blx*, *bly* (*backlinks*) 
         
