@@ -89,6 +89,11 @@ Install NetSim package
 
    >>> pip install dist/netsim*.tar.gz
 
+Documentation
+=============
+
+To learn how to use **NetSim** consult the following `documentation <https://netsim.readthedocs.io/>`_
+
 
 Citation
 ========
