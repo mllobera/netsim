@@ -6,8 +6,8 @@ channels:
 dependencies:
   - python >= 3.7
   - numpy >= 1.16.3
-  - geopandas
-  - cython
+  - geopandas >= 0.5.0
+  - cython >= 0.29.7
   - matplotlib
   - pandas
   - jupyter
