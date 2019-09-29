@@ -52,8 +52,8 @@ cdef cy_calculate_iwdt(double[:,:] iwdt_tmp, dict iwdt_dict, int option = 1):
     # initialize old_iwdt and backlinks
     cdef:
         double[:,::1] old_iwdt = np.ascontiguousarray(np.zeros((iwdt.shape[0],iwdt.shape[1]), np.float64))
-        int[:,::1] blx = np.ascontiguousarray(np.zeros((iwdt.shape[0],iwdt.shape[1]), np.intc))
-        int[:,::1] bly = np.ascontiguousarray(np.zeros((iwdt.shape[0],iwdt.shape[1]), np.intc))
+        int[:,::1] blx = np.ascontiguousarray(np.zeros((iwdt.shape[0],iwdt.shape[1]), np.int32))
+        int[:,::1] bly = np.ascontiguousarray(np.zeros((iwdt.shape[0],iwdt.shape[1]), np.int32))
 
     # calculate max_cost
     cdef:
@@ -237,8 +237,8 @@ cdef cy_calculate_dt(double[:,:] dt_tmp, float cellsize, int option = 1):
     
     # initialize backlinks
     cdef:
-        int[:,::1] blx = np.ascontiguousarray(np.zeros((dt.shape[0],dt.shape[1]), np.intc))
-        int[:,::1] bly = np.ascontiguousarray(np.zeros((dt.shape[0],dt.shape[1]), np.intc))        
+        int[:,::1] blx = np.ascontiguousarray(np.zeros((dt.shape[0],dt.shape[1]), np.int32))
+        int[:,::1] bly = np.ascontiguousarray(np.zeros((dt.shape[0],dt.shape[1]), np.int32))        
     
     # calculate loop limits
     cdef:
