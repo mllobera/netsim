@@ -2302,7 +2302,6 @@ static const char __pyx_k_base[] = "base";
 static const char __pyx_k_coef[] = "coef";
 static const char __pyx_k_dict[] = "__dict__";
 static const char __pyx_k_edge[] = "edge";
-static const char __pyx_k_intc[] = "intc";
 static const char __pyx_k_iwdt[] = "iwdt";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_mean[] = "mean";
@@ -2320,6 +2319,7 @@ static const char __pyx_k_class[] = "__class__";
 static const char __pyx_k_error[] = "error";
 static const char __pyx_k_flags[] = "flags";
 static const char __pyx_k_float[] = "float";
+static const char __pyx_k_int32[] = "int32";
 static const char __pyx_k_ncoef[] = "ncoef";
 static const char __pyx_k_nsize[] = "nsize";
 static const char __pyx_k_numpy[] = "numpy";
@@ -2489,7 +2489,7 @@ static PyObject *__pyx_kp_s_got_differing_extents_in_dimensi;
 static PyObject *__pyx_n_s_gradient;
 static PyObject *__pyx_n_s_id;
 static PyObject *__pyx_n_s_import;
-static PyObject *__pyx_n_s_intc;
+static PyObject *__pyx_n_s_int32;
 static PyObject *__pyx_n_s_itemsize;
 static PyObject *__pyx_kp_s_itemsize_0_for_cython_array;
 static PyObject *__pyx_n_s_iwdt;
@@ -3078,8 +3078,8 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_iwdt(__Pyx_memviewslice __py
  *     # initialize old_iwdt and backlinks
  *     cdef:
  *         double[:,::1] old_iwdt = np.ascontiguousarray(np.zeros((iwdt.shape[0],iwdt.shape[1]), np.float64))             # <<<<<<<<<<<<<<
- *         int[:,::1] blx = np.ascontiguousarray(np.zeros((iwdt.shape[0],iwdt.shape[1]), np.intc))
- *         int[:,::1] bly = np.ascontiguousarray(np.zeros((iwdt.shape[0],iwdt.shape[1]), np.intc))
+ *         int[:,::1] blx = np.ascontiguousarray(np.zeros((iwdt.shape[0],iwdt.shape[1]), np.int32))
+ *         int[:,::1] bly = np.ascontiguousarray(np.zeros((iwdt.shape[0],iwdt.shape[1]), np.int32))
  */
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 54, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
@@ -3182,8 +3182,8 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_iwdt(__Pyx_memviewslice __py
   /* "netsim/cost.pyx":55
  *     cdef:
  *         double[:,::1] old_iwdt = np.ascontiguousarray(np.zeros((iwdt.shape[0],iwdt.shape[1]), np.float64))
- *         int[:,::1] blx = np.ascontiguousarray(np.zeros((iwdt.shape[0],iwdt.shape[1]), np.intc))             # <<<<<<<<<<<<<<
- *         int[:,::1] bly = np.ascontiguousarray(np.zeros((iwdt.shape[0],iwdt.shape[1]), np.intc))
+ *         int[:,::1] blx = np.ascontiguousarray(np.zeros((iwdt.shape[0],iwdt.shape[1]), np.int32))             # <<<<<<<<<<<<<<
+ *         int[:,::1] bly = np.ascontiguousarray(np.zeros((iwdt.shape[0],iwdt.shape[1]), np.int32))
  * 
  */
   __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 55, __pyx_L1_error)
@@ -3210,7 +3210,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_iwdt(__Pyx_memviewslice __py
   __pyx_t_4 = 0;
   __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 55, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_intc); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 55, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_int32); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 55, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_4 = NULL;
@@ -3286,8 +3286,8 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_iwdt(__Pyx_memviewslice __py
 
   /* "netsim/cost.pyx":56
  *         double[:,::1] old_iwdt = np.ascontiguousarray(np.zeros((iwdt.shape[0],iwdt.shape[1]), np.float64))
- *         int[:,::1] blx = np.ascontiguousarray(np.zeros((iwdt.shape[0],iwdt.shape[1]), np.intc))
- *         int[:,::1] bly = np.ascontiguousarray(np.zeros((iwdt.shape[0],iwdt.shape[1]), np.intc))             # <<<<<<<<<<<<<<
+ *         int[:,::1] blx = np.ascontiguousarray(np.zeros((iwdt.shape[0],iwdt.shape[1]), np.int32))
+ *         int[:,::1] bly = np.ascontiguousarray(np.zeros((iwdt.shape[0],iwdt.shape[1]), np.int32))             # <<<<<<<<<<<<<<
  * 
  *     # calculate max_cost
  */
@@ -3315,7 +3315,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_iwdt(__Pyx_memviewslice __py
   __pyx_t_8 = 0;
   __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_np); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 56, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_intc); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 56, __pyx_L1_error)
+  __pyx_t_12 = __Pyx_PyObject_GetAttrStr(__pyx_t_8, __pyx_n_s_int32); if (unlikely(!__pyx_t_12)) __PYX_ERR(0, 56, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_12);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __pyx_t_8 = NULL;
@@ -5672,8 +5672,8 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
   /* "netsim/cost.pyx":240
  *     # initialize backlinks
  *     cdef:
- *         int[:,::1] blx = np.ascontiguousarray(np.zeros((dt.shape[0],dt.shape[1]), np.intc))             # <<<<<<<<<<<<<<
- *         int[:,::1] bly = np.ascontiguousarray(np.zeros((dt.shape[0],dt.shape[1]), np.intc))
+ *         int[:,::1] blx = np.ascontiguousarray(np.zeros((dt.shape[0],dt.shape[1]), np.int32))             # <<<<<<<<<<<<<<
+ *         int[:,::1] bly = np.ascontiguousarray(np.zeros((dt.shape[0],dt.shape[1]), np.int32))
  * 
  */
   __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_np); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 240, __pyx_L1_error)
@@ -5700,7 +5700,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
   __pyx_t_7 = 0;
   __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_np); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 240, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_intc); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 240, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_7, __pyx_n_s_int32); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 240, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
   __pyx_t_7 = NULL;
@@ -5776,8 +5776,8 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
 
   /* "netsim/cost.pyx":241
  *     cdef:
- *         int[:,::1] blx = np.ascontiguousarray(np.zeros((dt.shape[0],dt.shape[1]), np.intc))
- *         int[:,::1] bly = np.ascontiguousarray(np.zeros((dt.shape[0],dt.shape[1]), np.intc))             # <<<<<<<<<<<<<<
+ *         int[:,::1] blx = np.ascontiguousarray(np.zeros((dt.shape[0],dt.shape[1]), np.int32))
+ *         int[:,::1] bly = np.ascontiguousarray(np.zeros((dt.shape[0],dt.shape[1]), np.int32))             # <<<<<<<<<<<<<<
  * 
  *     # calculate loop limits
  */
@@ -5805,7 +5805,7 @@ static PyObject *__pyx_f_6netsim_4cost_cy_calculate_dt(__Pyx_memviewslice __pyx_
   __pyx_t_4 = 0;
   __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 241, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_intc); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 241, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_int32); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 241, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_t_4 = NULL;
@@ -23291,7 +23291,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_gradient, __pyx_k_gradient, sizeof(__pyx_k_gradient), 0, 0, 1, 1},
   {&__pyx_n_s_id, __pyx_k_id, sizeof(__pyx_k_id), 0, 0, 1, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
-  {&__pyx_n_s_intc, __pyx_k_intc, sizeof(__pyx_k_intc), 0, 0, 1, 1},
+  {&__pyx_n_s_int32, __pyx_k_int32, sizeof(__pyx_k_int32), 0, 0, 1, 1},
   {&__pyx_n_s_itemsize, __pyx_k_itemsize, sizeof(__pyx_k_itemsize), 0, 0, 1, 1},
   {&__pyx_kp_s_itemsize_0_for_cython_array, __pyx_k_itemsize_0_for_cython_array, sizeof(__pyx_k_itemsize_0_for_cython_array), 0, 0, 1, 0},
   {&__pyx_n_s_iwdt, __pyx_k_iwdt, sizeof(__pyx_k_iwdt), 0, 0, 1, 1},
