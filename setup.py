@@ -147,7 +147,8 @@ setup(
     #
     # For an analysis of "install_requires" vs pip's requirements files see:
     # https://packaging.python.org/en/latest/requirements.html
-    install_requires=['numpy>= 1.16', 'cython>=0.29.7', 'networkx>=2.3'],  # Optional
+    install_requires=['numpy>= 1.16', 'cython>=0.29.7', 'networkx>=2.3',
+    'geopandas >=0.5.0', 'rasterio >=1.0.24', 'pandas>=0.24.0'],  # Optional
 
     # Include here extensions - MLL
     #ext_modules = cythonize(extensions),
