@@ -12,8 +12,9 @@
 #
 import os
 import sys
+
+# include when building locally but not when building readthedocs
 #sys.path.insert(0, os.path.abspath('../..'))
-#print(os.getcwd(), sys.path[0])
 
 # -- Project information -----------------------------------------------------
 
