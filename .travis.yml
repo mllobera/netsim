@@ -1,4 +1,4 @@
-  # misc
+# misc
 notifications:
   email: false
 sudo: false
