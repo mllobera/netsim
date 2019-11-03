@@ -98,7 +98,7 @@ To learn how to use **NetSim** consult the following `documentation <https://net
 Citation
 ========
 
-This work is currently under review.  For the time being please cite this work as follows:
+This work is currently under review as part of a publication.  For the time being please cite this work as follows:
 
     Llobera, M. 2019. Netsim package (Version 0.0.1). https://github.com/mllobera/netsim
 
@@ -106,7 +106,14 @@ This work is currently under review.  For the time being please cite this work a
 License
 =======
 
-**NetSim** is an open source `BSD-license <../../../LICENSE.rst>`_ package 
+**NetSim** is an open source `BSD-license <../../../LICENSE.rst>`_ package
+
+
+Status
+======
+
+.. image:: https://travis-ci.com/mllobera/netsim.svg?branch=master
+   :target: https://travis-ci.com/mllobera/netsim
 
 
 
