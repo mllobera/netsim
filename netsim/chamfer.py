@@ -24,9 +24,9 @@ ldm = np.array([[a1,a1,a1,a2,a3,a2,a1,a3],
 
 # chamfer window offsets
 dx  = np.array([[-2,-2,-1,-1,-1,-1,-1, 0],
-                [0, 1, 1, 1, 1, 1, 2, 2]])
+                [0, 1, 1, 1, 1, 1, 2, 2]], dtype= np.intc)
 dy  = np.array([[-1, 1,-2,-1, 0, 1, 2,-1],
-                [1,-2,-1, 0, 1, 2,-1, 1]])
+                [1,-2,-1, 0, 1, 2,-1, 1]], dtype= np.intc)
 
 #: threshold for distance transform convergence
 threshold = 0.5
