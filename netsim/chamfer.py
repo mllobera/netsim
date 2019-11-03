@@ -31,5 +31,5 @@ dy  = np.array([[-1, 1,-2,-1, 0, 1, 2,-1],
 #: threshold for distance transform convergence
 threshold = 0.5
 
-# dtype
+# dtype check this?
 DTYPE = np.float64

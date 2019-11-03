@@ -186,8 +186,7 @@ def plot_map(raster, loc= None, title= None, figsize= (5,5), cmap= 'viridis', cb
     
     save: string, optional
         if not empty then name of the output image. *Default: None*
-        
-        
+         
     '''
    
     # set colormap
