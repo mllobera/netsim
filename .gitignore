@@ -5,7 +5,6 @@
 build/
 netsim.egg-info/
 docs/build/
-docs/image/
-docs/source/_autosummary
+#docs/source/_autosummary
 docs/source/_static
 docs/source/_templates
