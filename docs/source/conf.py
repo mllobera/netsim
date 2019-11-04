@@ -13,8 +13,8 @@
 import os
 import sys
 
-# include when building locally but not when building readthedocs
-#sys.path.insert(0, os.path.abspath('../..'))
+# Important uncomment when building locally but comment when submitting to github for building readthedocs
+sys.path.insert(0, os.path.abspath('../..'))
 
 # -- Project information -----------------------------------------------------
 
