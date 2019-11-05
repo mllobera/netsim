@@ -120,7 +120,7 @@ def check(df):
         
         # raise exception if any errors        
         if error_flag:
-            raise('\nCheck errors !!! Network simulation ABORTED!! ')    
+            raise Exception('\nCheck errors !!! Network simulation ABORTED!! ')    
     else:
         print('\n No corrections or errors !! ')
 
