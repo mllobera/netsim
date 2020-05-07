@@ -14,7 +14,7 @@ import os
 import sys
 
 # Important uncomment when building locally but comment when submitting to github for building readthedocs
-sys.path.insert(0, os.path.abspath('../..'))
+# sys.path.insert(0, os.path.abspath('../..'))
 
 # -- Project information -----------------------------------------------------
 
